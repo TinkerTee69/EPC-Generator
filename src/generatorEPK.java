@@ -1,9 +1,9 @@
 public class generatorEPK {
     private String taskText;
 
-
-
     private Integer amountGates;
+    private Integer amountEvents;
+    private Integer amountFunctions;
 
     public void generateEPK(int difficulty, int knotGrade, int length){
 
@@ -22,6 +22,22 @@ public class generatorEPK {
         return amountGates;
     }
 
+    public Integer calcAmountEvents(int difficulty, int knotGrade, int length){
+        amountEvents = (int)Math.round((float)(difficulty + knotGrade + length))*2;
+        if(knotGrade < length){
+            amountEvents = (int)Math.floor(amountEvents * 0.67);
+        }
+
+        if(knotGrade > length){
+            amountEvents = (int)Math.ceil(amountEvents * 1.33);
+        }
+        return amountEvents;
+    }
+
+    public Integer calcAmountFunctions(int difficulty, int knotGrade, int length, int amountEvents) {
+        amountFunctions = amountEvents -1;
+        return amountFunctions;
+    }
 
 
 

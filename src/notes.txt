@@ -1,3 +1,5 @@
 Überprüfen Usereingaben
 leicht + viele Knoten + langer Text = viele gleiche Ands / Ors
 schwer + wenige Knotengrad + kurzer Text = Xors
+
+Oberfläche zur Bearbeitung
