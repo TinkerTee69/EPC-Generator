@@ -13,7 +13,7 @@ public class mainProg {
         epk.randomizeTypeGate(task.getDifficulty(), epk.getTypeGate());
 
         generatorTask taskText = new generatorTask();
-        System.out.println(taskText.generateTaskText(task.getDifficulty(), task.getKnotGrade(), task.getLength()));
+        //System.out.println(taskText.generateTaskText(task.getDifficulty(), task.getKnotGrade(), task.getLength()));
 
 
         randomTree rndTree = new randomTree();

@@ -9,13 +9,13 @@ public class generatorEPK {
         return typeGate;
     }
 
-    private List<String> typeGate = new ArrayList<>();
+    private final List<String> typeGate = new ArrayList<>();
     private Integer amountAND = 0;
     private Integer amountOR = 0;
     private Integer amountXOR = 0;
 
 
-    public Integer calcAmountGates(int difficulty, int knotGrade, int length){
+    public void calcAmountGates(int difficulty, int knotGrade, int length){
         amountGates = Math.round((float)(difficulty + knotGrade + length)/3);
         if(knotGrade != length){
             amountGates = (int)Math.floor((float)amountGates * (float)(knotGrade/length));
@@ -33,10 +33,9 @@ public class generatorEPK {
             amountGates++;
         }
         System.out.println("Anzahl Gates: " + amountGates);
-        return amountGates;
     }
 
-    public Integer calcAmountEvents(int difficulty, int knotGrade, int length){
+    public void calcAmountEvents(int difficulty, int knotGrade, int length){
         amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
         if(knotGrade < length){
             amountEvents = (int)Math.floor(amountEvents * 0.67);
@@ -46,16 +45,14 @@ public class generatorEPK {
             amountEvents = (int)Math.ceil(amountEvents * 1.33);
         }
         System.out.println("Anzahl Events: " + amountEvents);
-        return amountEvents;
     }
 
-    public Integer calcAmountFunctions(int amountEvents) {
+    public void calcAmountFunctions(int amountEvents) {
         amountFunctions = amountEvents -1;
-        System.out.println("Anzahl Gates: " + amountFunctions);
-        return amountFunctions;
+        System.out.println("Anzahl Functions: " + amountFunctions);
     }
 
-    public List<String> randomizeTypeGate(int difficulty, List<String> typeGate) {
+    public void randomizeTypeGate(int difficulty, List<String> typeGate) {
         int i = 0;
         while(i < amountGates) {
             i++;
@@ -109,8 +106,8 @@ public class generatorEPK {
             //if(rnd<5)
             i++;
         }*/
+        Collections.shuffle(typeGate);
         System.out.println("Types of gates: " + typeGate);
-        return typeGate;
     }
 
     public Integer getAmountGates() {

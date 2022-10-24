@@ -1,11 +1,10 @@
 TODO:
-Spinning Anpassung an Knotenbreite
-Textgenerierung: Markov Chains
-grafische Ausgabe EPK
-
-Überprüfen Usereingaben
-
-Oberfläche zur Bearbeitung
+1. Textgenerierung: Markov Chains
+2. grafische Ausgabe EPK
+3. Spinning Anpassung an Knotenbreite
+4. Oberfläche zur Bearbeitung
+5. Überprüfen Usereingaben
+6. Doku
 
 
 
