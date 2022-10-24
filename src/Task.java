@@ -9,16 +9,21 @@ public class Task {
         return knotGrade;
     }
 
-    public void setKnotGrade(Integer knotGrade) {
-        this.knotGrade = knotGrade;
+    public void setKnotGrade() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose knot grade from 1 [linear] to  3 [complex]");
+        this.knotGrade = Integer.parseInt(sc.nextLine());
     }
 
     public Integer getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Integer difficulty) {
-        this.difficulty = difficulty;
+    public void setDifficulty() {
+
+        System.out.println("Choose difficulty from 1 [easy] to 3 [hard]");
+        Scanner sc = new Scanner(System.in);
+        this.difficulty = Integer.parseInt(sc.nextLine());
     }
 
 
@@ -26,8 +31,10 @@ public class Task {
         return length;
     }
 
-    public void setLength(Integer length) {
-        this.length = length;
+    public void setLength() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose process length from 1 [short] to 3 [long]");
+        this.length = Integer.parseInt(sc.nextLine());
     }
 
 }

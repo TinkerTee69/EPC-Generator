@@ -1,5 +1,18 @@
+TODO:
+Spinning Anpassung an Knotenbreite
+Textgenerierung: Markov Chains
+grafische Ausgabe EPK
+
 Überprüfen Usereingaben
-leicht + viele Knoten + langer Text = viele gleiche Ands / Ors
-schwer + wenige Knotengrad + kurzer Text = Xors
 
 Oberfläche zur Bearbeitung
+
+
+
+
+
+
+https://www.educative.io/blog/data-structures-trees-java
+https://www.geeksforgeeks.org/random-tree-generator-using-prufer-sequence-with-examples/
+EPK-Grammatik: http://ceur-ws.org/Vol-65/06nuettgens.pdf
+BPMN-Generator: https://github.com/delas/plg
