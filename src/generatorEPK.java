@@ -100,12 +100,6 @@ public class generatorEPK {
                 }
             }
         }
-        /*i = 0;
-        while(i < typeGate.size()) {
-            rnd = rand.nextInt(10);
-            //if(rnd<5)
-            i++;
-        }*/
         Collections.shuffle(typeGate);
         System.out.println("Types of gates: " + typeGate);
     }

@@ -16,8 +16,9 @@ public class mainProg {
         //System.out.println(taskText.generateTaskText(task.getDifficulty(), task.getKnotGrade(), task.getLength()));
 
 
-        randomTree rndTree = new randomTree();
-        rndTree.generateRandomTree(epk.getAmountGates());
+        //randomTree rndTree = new randomTree();
+        randomTree2 rndTree = new randomTree2();
+        rndTree.generateRandomTree(epk.getAmountGates(), epk.getTypeGate());
 
         //User interface for working on the task
     }

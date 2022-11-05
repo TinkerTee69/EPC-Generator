@@ -1,8 +1,18 @@
 import java.util.*;
 
 class randomTree {
+    public List<String> getGateList() {
+        return gateList;
+    }
 
-    static void printTreeEdges(int[] arr, int amountGates)
+    public static void setGateList(String addElement) {
+        gateList.add(addElement);
+
+    }
+
+    private static List<String> gateList;
+
+    static void printTreeEdges(int[] arr, int amountGates, List<String> gateType)
     {
         int[] gate_set = new int[amountGates];
 
@@ -19,7 +29,10 @@ class randomTree {
             for (j = 0; j < amountGates; j++) {
                 if (gate_set[j] == 0) {
                     gate_set[j] = -1;
-                    System.out.print("(" + (j + 1) + ", " + arr[i] + ") ");
+
+                    {
+                        System.out.print("(" + (j + 1) + " " + gateType.get(j) + " , " + arr[i] + " " + gateType.get(arr[i]-1)+ ") ");
+                    }
                     gate_set[arr[i] - 1]--;
                     break;
                 }
@@ -29,15 +42,19 @@ class randomTree {
         j = 0;
         for (int i = 0; i < amountGates; i++) {
             if (gate_set[i] == 0 && j == 0) {
-                System.out.print("(" + (i + 1) + ", ");
+                //System.out.print("(" + (i + 1) + " " + gateType.get(i) + ", ");
+                {
+                    System.out.print("(" + (i + 1) + " " + gateType.get(i) + ", ");
+                }
                 j++;
             }
             else if (gate_set[i] == 0 && j == 1)
-                System.out.print((i + 1) + ")\n");
+                System.out.print((i + 1) + " " + gateType.get(i) + ")\n");
         }
+        //System.out.println(Arrays.toString(arr));
     }
 
-    public void generateRandomTree(int amountGates)
+    public void generateRandomTree(int amountGates, List<String> gateType)
     {
 
         Random rand = new Random();
@@ -46,6 +63,6 @@ class randomTree {
         for (int i = 0; i < amountGates-2; i++) {
             arr[i] = rand.nextInt(amountGates -1) + 1;
         }
-        printTreeEdges(arr, amountGates);
+        printTreeEdges(arr, amountGates, gateType);
     }
 }
