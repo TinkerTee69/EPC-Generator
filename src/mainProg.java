@@ -21,5 +21,6 @@ public class mainProg {
         rndTree.generateRandomTree(epk.getAmountGates(), epk.getTypeGate());
 
         //User interface for working on the task
+        new UI();
     }
 }
