@@ -10,7 +10,7 @@ Rauten - zwischen den Gates
 öffnen und schließen der richtigen Gates
 kleineren Index zu größeren (Reihenfolge)
 2. Parameter Varianten
-explizite Varianten (And muss drinnne sein, ANzahl Gates...)
+explizite Varianten (And muss drinnen sein, Anzahl Gates...)
 Relation Functionen zu Gates / Bedingungen zur Überprüfung ob die Eingaben Sinn machen
 
 
@@ -19,6 +19,8 @@ nächste Woche Montag?
 
 
 
+
+Probleme: Schließen der Gates schwerer als gedacht
 
 https://www.educative.io/blog/data-structures-trees-java
 https://www.geeksforgeeks.org/random-tree-generator-using-prufer-sequence-with-examples/
