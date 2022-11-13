@@ -9,11 +9,11 @@ public class mainProg {
         task.setKnotGrade();
         task.setLength();
 
-        generatorEPK epk = new generatorEPK();
-        epk.calcAmountGates(task.getDifficulty(), task.getKnotGrade(), task.getLength());
-        epk.calcAmountEvents(task.getDifficulty(), task.getKnotGrade(), task.getLength());
-        epk.calcAmountFunctions(epk.getAmountEvents());
-        epk.randomizeTypeGate(task.getDifficulty(), epk.getTypeGate());
+        generatorEPK generate_epk = new generatorEPK();
+        generate_epk.calcAmountGates(task.getDifficulty(), task.getKnotGrade(), task.getLength());
+        generate_epk.calcAmountEvents(task.getDifficulty(), task.getKnotGrade(), task.getLength());
+        generate_epk.calcAmountFunctions(generate_epk.getAmountEvents());
+        generate_epk.randomizeTypeGate(task.getDifficulty(), generate_epk.getTypeGate());
 
         generatorTask taskText = new generatorTask();
         //System.out.println(taskText.generateTaskText(task.getDifficulty(), task.getKnotGrade(), task.getLength()));
@@ -21,8 +21,10 @@ public class mainProg {
 
         //randomTree rndTree = new randomTree();
         randomTree2 rndTree = new randomTree2();
-        rndTree.generateRandomTree(epk.getAmountGates(), epk.getTypeGate());
+        rndTree.generateRandomTree(generate_epk.getAmountGates(), generate_epk.getTypeGate());
 
+        EPK epk = new EPK();
+        System.out.println(epk.getEvtList_epk());
 
 //        OR or = new OR();
 //        List<Integer> position = new ArrayList<>();

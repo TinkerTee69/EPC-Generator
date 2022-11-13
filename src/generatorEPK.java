@@ -15,10 +15,13 @@ public class generatorEPK {
     private Integer amountXOR = 0;
 
     private final List<Integer> position = new ArrayList<>();
+
     List<Object> gates = new ArrayList<>();
-//    position.add(1);
-//        or.setPosition(position);
     private final gateList gate = new gateList(gates);
+    List<Object> func = new ArrayList<>();
+    private final functionList functions = new functionList(func);
+    List<Object> evt = new ArrayList<>();
+    private final eventList evtList = new eventList(evt);
 
 
     public void calcAmountGates(int difficulty, int knotGrade, int length){
@@ -51,11 +54,23 @@ public class generatorEPK {
             amountEvents = (int)Math.ceil(amountEvents * 1.33);
         }
         System.out.println("Anzahl Events: " + amountEvents);
+
+        for(int i = 0; i < amountEvents; i++)
+        {
+            Event evt = new Event(i, "Event Nr. " + i);
+            eventList.addElement(evt);
+        }
     }
 
     public void calcAmountFunctions(int amountEvents) {
         amountFunctions = amountEvents -1;
         System.out.println("Anzahl Functions: " + amountFunctions);
+
+        for(int i = 0; i < amountFunctions; i++)
+        {
+            Function fct = new Function(i, "hier könnte ihre Werbung stehen " + i);
+            functionList.addElement(fct);
+        }
     }
 
     public void randomizeTypeGate(int difficulty, List<String> typeGate) {
