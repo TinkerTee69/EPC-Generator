@@ -18,21 +18,26 @@ public class EPK {
         epkList = buildEPK();
 
     }
-//    public Event getEvent() {
-//        return event;
-//    }
-//
-//    public void setEvent(Event event) {
-//        this.event = event;
-//    }
-//
-//    public Function getFunction() {
-//        return function;
-//    }
-//
-//    public void setFunction(Function function) {
-//        this.function = function;
-//    }
+
+    public List<Object> buildEPK(){
+        int i = 0;
+        int i_gate = 0;
+        int i_fct = 0;
+        int i_evt = 0;
+        while(i < gateList_epk.size())
+        {
+            if(i==0)
+            {
+                epkList.add(eventList.getEvtList().get(0));
+            }
+            else if(eventList.getEvtList().get(i)!=null)
+            {
+                epkList.add(eventList.getEvtList().get(i));
+            }
+            i++;
+        }
+        return epkList;
+    }
 
     public void setGateList_epk(gateList gateList_epk) {
         this.gateList_epk = gateList.getGateList();
@@ -75,24 +80,6 @@ public class EPK {
         this.epkList = epkList;
     }
 
-    public List<Object> buildEPK(){
-        int i = 0;
-        int i_gate = 0;
-        int i_fct = 0;
-        int i_evt = 0;
-        while(i < gateList_epk.size())
-        {
-            if(i==0)
-            {
-                epkList.add(eventList.getEvtList().get(0));
-            }
-            i++;
-        }
-        return epkList;
-    }
-
-//    private Event event;
-//    private Function function;
     private int[][] gatePairs;
     private List<Object> gateList_epk;
     private List<Object> fctList_epk;
