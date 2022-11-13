@@ -24,7 +24,7 @@ public class mainProg {
         rndTree.generateRandomTree(generate_epk.getAmountGates(), generate_epk.getTypeGate());
 
         EPK epk = new EPK();
-        System.out.println(epk.getEvtList_epk());
+        System.out.println(epk);
 
 //        OR or = new OR();
 //        List<Integer> position = new ArrayList<>();
@@ -36,6 +36,6 @@ public class mainProg {
 //        System.out.println(gate.getPosition(or));
 
         //User interface for working on the task
-        //new UI();
+        new UI(epk);
     }
 }

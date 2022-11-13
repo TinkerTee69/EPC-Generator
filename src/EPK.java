@@ -2,6 +2,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EPK {
+    public EPK(int[][] gatePairs, List<Object> gateList_epk, List<Object> fctList_epk, List<Object> evtList_epk, List<Object> epkList) {
+        this.gatePairs = gatePairs;
+        this.gateList_epk = gateList_epk;
+        this.fctList_epk = fctList_epk;
+        this.evtList_epk = evtList_epk;
+        this.epkList = epkList;
+    }
+
+    public EPK() {
+        gatePairs = getGatePairs();
+        gateList_epk = getGateList_epk();
+        fctList_epk = getFctList_epk();
+        evtList_epk = getEvtList_epk();
+        epkList = buildEPK();
+
+    }
 //    public Event getEvent() {
 //        return event;
 //    }
@@ -51,10 +67,35 @@ public class EPK {
         this.evtList_epk = evtList_epk;
     }
 
+    public List<Object> getEpkList() {
+        return epkList;
+    }
+
+    public void setEpkList(List<Object> epkList) {
+        this.epkList = epkList;
+    }
+
+    public List<Object> buildEPK(){
+        int i = 0;
+        int i_gate = 0;
+        int i_fct = 0;
+        int i_evt = 0;
+        while(i < gateList_epk.size())
+        {
+            if(i==0)
+            {
+                epkList.add(eventList.getEvtList().get(0));
+            }
+            i++;
+        }
+        return epkList;
+    }
+
 //    private Event event;
 //    private Function function;
     private int[][] gatePairs;
-    private List gateList_epk;
-    private List fctList_epk;
-    private List evtList_epk;
+    private List<Object> gateList_epk;
+    private List<Object> fctList_epk;
+    private List<Object> evtList_epk;
+    private List<Object> epkList = new ArrayList<>();
 }
