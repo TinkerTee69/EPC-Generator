@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class mainProg {
 
     public static void main(String[] args) {
@@ -20,7 +23,17 @@ public class mainProg {
         randomTree2 rndTree = new randomTree2();
         rndTree.generateRandomTree(epk.getAmountGates(), epk.getTypeGate());
 
+
+//        OR or = new OR();
+//        List<Integer> position = new ArrayList<>();
+//        List<Object> gates = new ArrayList<>();
+//        position.add(1);
+//        or.setPosition(position);
+//        gateList gate = new gateList(gates);
+//        gate.addElement(or);
+//        System.out.println(gate.getPosition(or));
+
         //User interface for working on the task
-        new UI();
+        //new UI();
     }
 }

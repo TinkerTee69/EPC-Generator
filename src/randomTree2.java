@@ -9,6 +9,14 @@ class randomTree2 {
     //int [][]gates = new int[][];
     private static final ArrayList<ArrayList<Integer> > gates = new ArrayList<ArrayList<Integer> >();
 
+    public static int[][] getGatePairs() {
+        return gatePairs;
+    }
+
+    public static void setGatePairs(int[][] gatePairs) {
+        randomTree2.gatePairs = gatePairs;
+    }
+
     private static int[][] gatePairs;// = new int[15][15];
 
     static void printTreeEdges(int[] arr, int amountGates, List<String> gateType, List<String> gateList_tmp)

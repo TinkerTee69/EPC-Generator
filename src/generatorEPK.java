@@ -14,6 +14,12 @@ public class generatorEPK {
     private Integer amountOR = 0;
     private Integer amountXOR = 0;
 
+    private final List<Integer> position = new ArrayList<>();
+    List<Object> gates = new ArrayList<>();
+//    position.add(1);
+//        or.setPosition(position);
+    private final gateList gate = new gateList(gates);
+
 
     public void calcAmountGates(int difficulty, int knotGrade, int length){
         amountGates = Math.round((float)(difficulty + knotGrade + length)/3);
@@ -101,7 +107,26 @@ public class generatorEPK {
             }
         }
         Collections.shuffle(typeGate);
+        for(int k = 0; k < typeGate.size();k++)
+        {
+            if(Objects.equals(typeGate.get(k), "AND"))
+            {
+                AND and = new AND(k);
+                gate.addElement(and);
+            }
+            else if(Objects.equals(typeGate.get(k), "OR"))
+            {
+                OR or = new OR(k);
+                gate.addElement(or);
+            }
+            else
+            {
+                XOR xor = new XOR(k);
+                gate.addElement(xor);
+            }
+        }
         System.out.println("Types of gates: " + typeGate);
+        System.out.println("Gatelist: " + gate.getGateList());
     }
 
     public Integer getAmountGates() {
