@@ -1,7 +1,24 @@
 import java.util.*;
 public class generatorEPK {
 
+    public void setAmountGates(Integer amountGates) {
+        this.amountGates = amountGates;
+    }
+
     private Integer amountGates;
+
+    public void setAmountEvents(Integer amountEvents) {
+        this.amountEvents = amountEvents;
+    }
+
+    public Integer getAmountFunctions() {
+        return amountFunctions;
+    }
+
+    public void setAmountFunctions(Integer amountFunctions) {
+        this.amountFunctions = amountFunctions;
+    }
+
     private Integer amountEvents;
     private Integer amountFunctions;
 
@@ -44,15 +61,9 @@ public class generatorEPK {
         System.out.println("Anzahl Gates: " + amountGates);
     }
 
-    public void calcAmountEvents(int difficulty, int knotGrade, int length){
-        amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
-        if(knotGrade < length){
-            amountEvents = (int)Math.floor(amountEvents * 0.67);
-        }
+    public void calcAmountEvents(){
+        //amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
 
-        if(knotGrade > length){
-            amountEvents = (int)Math.ceil(amountEvents * 1.33);
-        }
         System.out.println("Anzahl Events: " + amountEvents);
 
         for(int i = 0; i < amountEvents; i++)
@@ -62,8 +73,8 @@ public class generatorEPK {
         }
     }
 
-    public void calcAmountFunctions(int amountEvents) {
-        amountFunctions = amountEvents -1;
+    public void calcAmountFunctions() {
+        //amountFunctions = amountEvents -1;
         System.out.println("Anzahl Functions: " + amountFunctions);
 
         for(int i = 0; i < amountFunctions; i++)
@@ -73,8 +84,9 @@ public class generatorEPK {
         }
     }
 
-    public void randomizeTypeGate(int difficulty, List<String> typeGate) {
+    public void randomizeTypeGate() {
         int i = 0;
+        int difficulty = 3;
         while(i < amountGates) {
             i++;
             if (difficulty == 1) {
@@ -152,3 +164,51 @@ public class generatorEPK {
         return amountEvents;
     }
 }
+
+
+
+
+
+
+
+
+/*
+public void calcAmountGates(int difficulty, int knotGrade, int length){
+        amountGates = Math.round((float)(difficulty + knotGrade + length)/3);
+        if(knotGrade != length){
+            amountGates = (int)Math.floor((float)amountGates * (float)(knotGrade/length));
+        }
+
+        if(length == 2){
+            amountGates = (int)Math.ceil(amountGates * 1.51);
+        }
+
+        if(length == 3){
+            amountGates = (int)Math.ceil(amountGates * 2);
+        }
+
+        if(amountGates == 0){
+            amountGates++;
+        }
+        System.out.println("Anzahl Gates: " + amountGates);
+    }
+
+    public void calcAmountEvents(int difficulty, int knotGrade, int length){
+        amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
+        if(knotGrade < length){
+            amountEvents = (int)Math.floor(amountEvents * 0.67);
+        }
+
+        if(knotGrade > length){
+            amountEvents = (int)Math.ceil(amountEvents * 1.33);
+        }
+        System.out.println("Anzahl Events: " + amountEvents);
+
+        for(int i = 0; i < amountEvents; i++)
+        {
+            Event evt = new Event(i, "Event Nr. " + i);
+            eventList.addElement(evt);
+        }
+    }
+
+    */

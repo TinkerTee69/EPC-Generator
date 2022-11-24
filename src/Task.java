@@ -5,6 +5,44 @@ public class Task {
     private Integer length;
     private Integer knotGrade;
 
+    public Integer getGates() {
+        return gates;
+    }
+
+    public void setGates(generatorEPK generate_epk) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose amount of gates: ");
+        this.gates = Integer.parseInt(sc.nextLine());
+        generate_epk.setAmountGates(this.gates);
+    }
+
+    public Integer getEvents() {
+        return events;
+    }
+
+    public void setEvents(generatorEPK generate_epk) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose amount of events: ");
+        this.events = Integer.parseInt(sc.nextLine());
+        generate_epk.setAmountEvents(this.events);
+    }
+
+    public Integer getFunctions() {
+        return functions;
+    }
+
+    public void setFunctions(generatorEPK generate_epk) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose amount of Functions: ");
+        this.knotGrade = Integer.parseInt(sc.nextLine());
+        generate_epk.setAmountFunctions(this.events);
+    }
+
+    private Integer gates;
+    private Integer events;
+    private Integer functions;
+
+
     public Integer getKnotGrade() {
         return knotGrade;
     }

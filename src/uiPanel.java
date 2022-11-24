@@ -24,7 +24,9 @@ public class uiPanel extends JPanel {
                 System.out.println("xPoints: " + Arrays.toString(xPoints) + " , ypoints " + Arrays.toString(yPoints));
 
                 g2D.drawPolygon(xPoints, yPoints, 6);
-                g2D.drawString(((Event) epk.get(i)).getEventText(), (getEpk_Width()/3 - ((Event) epk.get(i)).getEventText().length()),getEpk_Height()/2 + i * (25 + getEpk_Height()));
+//                Vertikal
+//                g2D.drawString(((Event) epk.get(i)).getEventText(), (getEpk_Width()/3 - ((Event) epk.get(i)).getEventText().length()),getEpk_Height()/2 + i * (25 + getEpk_Height()));
+                g2D.drawString(((Event) epk.get(i)).getEventText(),(getEpk_Width()/3 - ((Event) epk.get(i)).getEventText().length()) + (getEpk_Width() + 25) * i, getHeight()/2);
                 drawLine(g2D, i);
             }
 
@@ -51,19 +53,38 @@ public class uiPanel extends JPanel {
 
     public void drawLine(Graphics2D g2D, int i)
     {
-        g2D.drawLine(getEpk_Width()/2,getEpk_Height() + i * getEpk_Height() + i * 25,getEpk_Width()/2,i * getEpk_Height() + getEpk_Height()+25 + i * 25);
+//        Vertikal
+//        g2D.drawLine(getEpk_Width()/2,getEpk_Height() + i * getEpk_Height() + i * 25,getEpk_Width()/2,i * getEpk_Height() + getEpk_Height()+25 + i * 25);
+        g2D.drawLine(getEpk_Width() + (getEpk_Width() + 25) * i,getHeight()/2,getEpk_Width() + 25 + (getEpk_Width() + 25) * i,getHeight()/2);
+
     }
 
     public void setEventXY(int i)
     {
         xPoints = new int[6];
         yPoints = new int[6];
-        xPoints[0] = xPoints[2] = 15;
-        xPoints[1] = 0; xPoints[4] = getEpk_Width();
-        xPoints[3] = xPoints[5] = getEpk_Width() - 15;
-        yPoints[0] = yPoints[5] = i * getEpk_Height() + i * 25;
-        yPoints[1] = yPoints[4] = i* getEpk_Height() + (getEpk_Height()/2) + i * 25;
-        yPoints[2] = yPoints[3] = i * getEpk_Height() + getEpk_Height() + i * 25;
+
+        //Vertikal
+//        xPoints[0] = xPoints[2] = 15;
+//        xPoints[1] = 0; xPoints[4] = getEpk_Width();
+//        xPoints[3] = xPoints[5] = getEpk_Width() - 15;
+//        yPoints[0] = yPoints[5] = i * getEpk_Height() + i * 25;
+//        yPoints[1] = yPoints[4] = i* getEpk_Height() + (getEpk_Height()/2) + i * 25;
+//        yPoints[2] = yPoints[3] = i * getEpk_Height() + getEpk_Height() + i * 25;
+
+        xPoints[0] = xPoints[2] = i * getEpk_Width() + 15;
+        xPoints[1] = i * getEpk_Width(); xPoints[4] = i * getEpk_Width() + getEpk_Width();
+        xPoints[3] = xPoints[5] = i * getEpk_Width() + getEpk_Width() -15;
+        yPoints[0] = yPoints[5] = getHeight()/2 - (getEpk_Height()/2);
+        yPoints[1] = yPoints[4] = getHeight()/2;
+        yPoints[2] = yPoints[3] = getHeight()/2 + (getEpk_Height()/2);
+
+
+
+        for(int j = 0; j < xPoints.length; j++)
+        {
+            xPoints[j] = xPoints[j] + (25 *i);
+        }
 
 //        for(int i = 0; i < yPoints.length; i++)
 //        {

@@ -8,6 +8,10 @@ Tag 3: Einführung und Einrichtung benötigter Systeme (Intranet, Raumbuchung, K
 Tag 4: Einrichtung PGP Outlook, Installation und Einrichtung IntelliJ, PyCharm, VirtualBox, Aufsetzen VMs Kali & Win
 Tag 5: Installation Docker, WebMap, Recherche Scan via Nmap, Nmap Script Sprache
 
+Woche 3
+CMS Tools zum laufen bringen
+Testumgebung aufbauen
+CMS Tools vergleichen
 
 
 Beschreibung Arbeitsplatz

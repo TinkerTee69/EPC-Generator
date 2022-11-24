@@ -1,3 +1,13 @@
+---16.11.22
+TODO:
+Wenn Gate: Splitten der Stränge
+
+
+Fragen:
+
+----------------------------------------------
+
+
 TODO:
 1. Textgenerierung: ?Markov Chains?, regelbasiert, KI
 2. grafische Ausgabe EPK
@@ -15,14 +25,20 @@ Relation Functionen zu Gates / Bedingungen zur Überprüfung ob die Eingaben Sin
 
 
 Fragen:
-nächste Woche Montag?
+nächste Woche Montag? Abgabetermin / Verteidigungstermin
 
 
 
-
+Kraus Roben - Bilderkennungs Framework
 Probleme: Schließen der Gates schwerer als gedacht
 
 https://www.educative.io/blog/data-structures-trees-java
 https://www.geeksforgeeks.org/random-tree-generator-using-prufer-sequence-with-examples/
 EPK-Grammatik: http://ceur-ws.org/Vol-65/06nuettgens.pdf
 BPMN-Generator: https://github.com/delas/plg
+
+
+-------------
+13.11.22
+kein Mobil, Verzweigung wird tricky
+---
