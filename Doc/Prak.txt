@@ -1,20 +1,49 @@
-Woche 1:
-Start erst am 02.11. da die Einführungsveranstaltung für neue Mitarbeiter erst an dem Tag beginnt, da in Bonn (Hauptsitz) der Feiertag Allerheiligen gefeiert wird.
-Tag 1: Einführungsveranstaltung, Pflichten, Geheimhaltungsbelehrung, Geheimschutzvereinbarung, Zeiterfassung; Einrichtung Technik, kurze Runde im Referat OC35. Kennenlernen von Paten.
-Tag 2: Problembehandlung BK Client (BWI), CTF, Teamaktivität (Lasertag, Mexikaner)
+Beschreibung Arbeitsplatz, Praxisprojekt, Aufgaben OC35
+Referatsschmiede, OC34/35 Meeting
+Team, Kollegen, Vorgesetzter, Support, Paten
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Woche 6
+Dienstreiseantrag
+
+----------------------------------------------------------------------------------------------------
+
+Woche 5:
+Auswertung der internen Dokumente → aufbauen Testumgebung interne Daten
+Aufbereitung der Ergebnisse (Präsentation der gewonnenen Erkenntnisse [Gov Builder, Wordpress, Typo3])
+Erweitern der Tools an der Auswertung (hinzufügen Typo3 Überprüfung...)
+Erweitern um eine Versionserkennung
+Confluence Referatsschmiede (Prozessverbesserung) / Präsentation in dem wöchentlichen Meeting
+
+----------------------------------------------------------------------------------------------------
+
+Woche 4:
+Exkurs Dell Server Konfiguration
+Anpassung Anforderung: CMS nicht deutschlandweit, sondern auf öff Verwaltungsebene
+Tool/Skript zur Auswertung der Scans schreiben
+Anpassung der Tools an die jeweiligen relevanten CMS Systeme
+
+----------------------------------------------------------------------------------------------------
+
+Woche 3
+CMS Tools zum Laufen bringen
+Testumgebung aufbauen
+CMS Tools vergleichen
+Woche 3: Installation Git Repos, zum Laufen bringen (python), Testumgebung (Websites sammeln)
+Vergleich der verschiedenen Tools! Bild Vgl!
+
+----------------------------------------------------------------------------------------------------
 
 Woche 2:
 Tag 3: Einführung und Einrichtung benötigter Systeme (Intranet, Raumbuchung, Kalender)
 Tag 4: Einrichtung PGP Outlook, Installation und Einrichtung IntelliJ, PyCharm, VirtualBox, Aufsetzen VMs Kali & Win
 Tag 5: Installation Docker, WebMap, Recherche Scan via Nmap, Nmap Script Sprache
 
-Woche 3
-CMS Tools zum laufen bringen
-Testumgebung aufbauen
-CMS Tools vergleichen
+----------------------------------------------------------------------------------------------------
 
-
-Beschreibung Arbeitsplatz
-Beschreibung Praxisprojekt
-Beschreibung Aufgaben OC35
-Team, Kollegen, Vorgesetzter, Support, Paten
+Woche 1:
+Start erst am 02.11. da die Einführungsveranstaltung für neue Mitarbeiter erst an dem Tag beginnt, da in Bonn (Hauptsitz) der Feiertag Allerheiligen gefeiert wird.
+Tag 1: Einführungsveranstaltung, Pflichten, Geheimhaltungsbelehrung, Geheimschutzvereinbarung, Zeiterfassung; Einrichtung Technik, kurze Runde im Referat OC35. Kennenlernen von Paten.
+Tag 2: Problembehandlung BK Client (BWI), CTF, Teamaktivität (Lasertag, Mexikaner)
