@@ -17,6 +17,14 @@ Erweitern der Tools an der Auswertung (hinzufügen Typo3 Überprüfung...)
 Erweitern um eine Versionserkennung
 Confluence Referatsschmiede (Prozessverbesserung) / Präsentation in dem wöchentlichen Meeting
 
+-Fringerprinting: (olaf:) immer wiederkehrende JS Dateien - hashwert drüberlaufen lassen.
+    - 10.1.0: Userservice, mindestens Java 11 & Tomcat 9 & MySQL 8.0/MariaDB 10.4/Oracle 12c notwendig
+    - Jackrabbit Repo 3.0
+    Liferay7
+    CAS 6
+    Spring Boot 2.1
+SiteGlobals
+
 ----------------------------------------------------------------------------------------------------
 
 Woche 4:
