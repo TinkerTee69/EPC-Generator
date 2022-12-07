@@ -1,6 +1,8 @@
+package depricated;
+
 import java.util.*;
 
-class randomTree {
+class rndTree {
     public List<String> getGateList() {
         return gateList;
     }

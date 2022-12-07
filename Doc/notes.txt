@@ -1,3 +1,36 @@
+---28.11.22
+TODO:
+Psuedocode Aufgabengenerierung
+Verbesserung checkNodeBefore
+--Schließen des Gates mit dem richtigen Typen
+Einfügen der Events & Funktionen
+Überprüfung Usereingaben
+Rautenbildung
+Text
+
+
+
+Gerichter zyklischer Grapehn
+Knoten erben
+Grpahen
+
+https://www2.htw-dresden.de/~s78840/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---16.11.22
 TODO:
 Wenn Gate: Splitten der Stränge

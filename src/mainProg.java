@@ -1,37 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class mainProg {
 
     public static void main(String[] args) {
-        Task task = new Task();
-        generatorEPK generate_epk = new generatorEPK();
-        randomTree2 rndTree = new randomTree2();
-        task.setGates(generate_epk);
-        task.setEvents(generate_epk);
-        task.setFunctions(generate_epk);
+        Parameters parameters = new Parameters();
+        GeneratorEPK generate_epk = new GeneratorEPK();
+        RandomTree rndTree = new RandomTree();
+        parameters.setGates(generate_epk);
+        parameters.setEvents(generate_epk);
+        parameters.setFunctions(generate_epk);
+
+        //generatorTask taskText = new generatorTask();
+
         //task.setDifficulty();
         //task.setKnotGrade();
         //task.setLength();
-
         //generate_epk.calcAmountGates(task.getDifficulty(), task.getKnotGrade(), task.getLength());
+
         generate_epk.calcAmountEvents();
         generate_epk.calcAmountFunctions();
         generate_epk.randomizeTypeGate();
 
-        generatorTask taskText = new generatorTask();
 
-
-        //randomTree rndTree = new randomTree();
-
-        rndTree.generateRandomTree(generate_epk.getAmountGates(), generate_epk.getTypeGate());
+        rndTree.generateRandomTree(generate_epk.getAmountGates());
 
         EPK epk = new EPK();
-        epk.show();
+        //epk.show();
 
 
-        mermaid m = new mermaid();
-        m.generateMermaid(epk);
+        Mermaid mermaid = new Mermaid();
+        mermaid.generateMermaid(epk);
 
 //        OR or = new OR();
 //        List<Integer> position = new ArrayList<>();

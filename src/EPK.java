@@ -29,7 +29,7 @@ public class EPK {
     }
 
     public EPK() {
-        gatePairs = getGatePairs();
+        gatePairs = RandomTree.getGatePairs();
         gateList_epk = getGateList_epk();
         fctList_epk = getFctList_epk();
         evtList_epk = getEvtList_epk();
@@ -37,152 +37,132 @@ public class EPK {
         //gatePairs_epk = gatePairs;
     }
 
-    public List<Object> buildEPK(){
-        setGatePairs(randomTree2.getGatePairs());
+    public List<Object> buildEPK() {
+        setGatePairs(RandomTree.getGatePairs());
         gatePairs_epk = getGatePairs();
 
-        int leftGatePair = 0;
-        int rightGatePair = 0;
         int i = 0;
         int i_gate = 0;
         int i_fct = 0;
         int i_evt = 0;
         int i_loop = 0;
-//        while(i_gate < gateList_epk.size() || i_fct < fctList_epk.size() || i_evt < evtList_epk.size())
-        while(i < (gateList_epk.size() + functionList.getFctList().size() + eventList.getEvtList().size()))
-        {
-//            System.out.println((gateList_epk.size() + functionList.getFctList().size() + eventList.getEvtList().size()) + " i:" + i);
-            if(i==0)
-            {
+        int l = 0;
+
+        while (i < (gateList_epk.size() + functionList.getFctList().size() + eventList.getEvtList().size())) {
+            if (i == 0) {
                 epkList.add(eventList.getEvtList().get(i_evt));
                 i_evt++;
             }
-            else if(i==1)
-            {
+            else if (i == 1) {
                 epkList.add(functionList.getFctList().get(i_fct));
                 i_fct++;
             }
-            else if((epkList.get(i-1) instanceof Event || epkList.get(i-1) instanceof AND)
-                    && (i+rnd.nextInt(4))%4==0
+            //
+            else if ((epkList.get(i - 1) instanceof Event || epkList.get(i - 1) instanceof AND)
+                    && (i + rnd.nextInt(4)) % 4 == 0
                     && functionList.getFctList().size() > i_fct
-                    )
-            {
-                if(epkList.get(i-1) instanceof  Event)
-                {
+            ) {
+                //Funktion darf nur nach einem Event erfolgen ...
+                if (epkList.get(i - 1) instanceof Event) {
                     epkList.add(functionList.getFctList().get(i_fct));
                     i_fct++;
-                    i_loop=0;
+                    i_loop = 0;
                 }
-                else if((epkList.get(i-1) instanceof AND && !(epkList.get(i-2) instanceof Function)))
-                {
+                //... oder nach einem AND wenn vor diesem ein Event steht
+                else if ((epkList.get(i - 1) instanceof AND && !(epkList.get(i - 2) instanceof Function))) {
                     epkList.add(functionList.getFctList().get(i_fct));
                     i_fct++;
-                    i_loop=0;
-                }
-                else {
+                    i_loop = 0;
+                } else {
                     i--;
                 }
-            }
-            else if(!(epkList.get(i-1) instanceof Event)
-                    && (i+rnd.nextInt(4))%4==1
-                    && eventList.getEvtList().size() > i_evt)
-            {
+                //Ein Event wird hinzugefügt wenn..
+            } else if (!(epkList.get(i - 1) instanceof Event)
+                    && (i + rnd.nextInt(4)) % 4 == 1
+                    && eventList.getEvtList().size() > i_evt) {
 
-                if((epkList.get(i-1) instanceof AND || epkList.get(i-1) instanceof OR  || epkList.get(i-1) instanceof XOR) && !(epkList.get(i-2) instanceof Event))
-                {
+                // sich vorher ein Gate befindet UND davor KEIN Event (=Funktion)
+                if ((epkList.get(i - 1) instanceof AND || epkList.get(i - 1) instanceof OR || epkList.get(i - 1) instanceof XOR) && !(epkList.get(i - 2) instanceof Event)) {
                     epkList.add(eventList.getEvtList().get(i_evt));
                     i_evt++;
-                    i_loop=0;
+                    i_loop = 0;
                 }
-                else if(epkList.get(i-1) instanceof Function)
-                {
+                //ODER sich direkt eine FUnktion befindet
+                else if (epkList.get(i - 1) instanceof Function) {
                     epkList.add(eventList.getEvtList().get(i_evt));
                     i_evt++;
-                    i_loop=0;
-                }
-                else
-                {
+                    i_loop = 0;
+                } else {
                     i--;
                 }
-            }
-            else if(gateList_epk.size() > i_gate
-                    && (epkList.get(i-1) instanceof Function
-                    || (epkList.get(i-1) instanceof Event && !(gateList_epk.get(i_gate) instanceof OR)) && !(gateList_epk.get(i_gate) instanceof XOR)))
-            {
+                //Ansonsten füge ein Gate hinzu
+            } else if (gateList_epk.size() > i_gate
+                    && (epkList.get(i - 1) instanceof Function
+                    || (epkList.get(i - 1) instanceof Event && !(gateList_epk.get(i_gate) instanceof OR)) && !(gateList_epk.get(i_gate) instanceof XOR))) {
                 epkList.add(gateList_epk.get(i_gate));
-                //if(i_gate%2==0)
                 {
-                    //leftGatePair = i_gate/2;
-                    //rightGatePair = i_gate%2;
-//                    gatePairs_epk[leftGatePair][rightGatePair] = i;
-                    //übersetzung random tree nr zu epkliste
-                    //gatePairs_epk[i_gate][1] = i;
                     gatePosition.add(i);
-
-
+                    setGatePosition(gatePosition);
                 }
-                i_gate++;
-                i_loop=0;
-            }
 
-            else
-            {
+                i_gate++;
+                i_loop = 0;
+            } else {
                 //System.out.println("random " + rnd.nextInt(3));
                 i_loop++;
                 i--;
-                if(i_loop == 20)
-                {
+                if (i_loop == 20) {
                     break;
                 }
 
             }
             i++;
-            //show();
         }
+        checkBeforeNodes();
+        return epkList;
+    }
 
+    public List<Object> checkBeforeNodes() {
         // Verbindung gates ohne vorherige Verbindungen mit zufälligen vorherigen Gate
-        i = 0;
+        setGatePairs(RandomTree.getGatePairs());
+        gatePairs_epk = getGatePairs();
+        int i = 0;
         int j = gatePairs.length;
         int k = 0;
+        int l = 0;
+        int m = 0;
+        boolean allChecked = false;
         boolean connectedFlag = false;
         int amountAddGate = 0;
-        while(gatePairs_epk.length > i)
-        {
+        while(gatePairs_epk.length > i) {
             j = gatePairs.length;
-            while(j > 0)
-            {
-                if(gatePairs_epk[i][0] == gatePairs_epk[j-1][1] || gatePairs_epk[i][0] == 1)
-                {
+            while (j > 0) {
+                if (gatePairs_epk[i][0] == gatePairs_epk[j - 1][1] || gatePairs_epk[i][0] == 1) {
                     connectedFlag = true;
                     break;
                 }
                 j--;
             }
-            if(amountAddGate > 0 && connectedFlag == false)
-            {
+            if (amountAddGate > 0 && connectedFlag == false) {
                 connectedFlag = checkGatePairsTmp(gatePairs_epk[i][0]);
             }
-            if(connectedFlag == false)
-            {
+            if (connectedFlag == false) {
                 amountAddGate++;
-                if(amountAddGate>1)
-                {
-                    int[][] gatePairs_tmp = new int[gatePairs_epk.length+amountAddGate][2];
+                if (amountAddGate > 1) {
+                    int[][] gatePairs_tmp = new int[gatePairs_epk.length + amountAddGate][2];
                     int[][] gatePairs_tmp2 = getGatePairs_tmp();
                     int q = 0;
-                    while(gatePairs_tmp2.length-1 > q)
-                    {
+                    while (gatePairs_tmp2.length > q) {
                         gatePairs_tmp[q][0] = gatePairs_tmp2[q][0];
                         gatePairs_tmp[q][1] = gatePairs_tmp2[q][1];
-                        System.out.print("hier hängtsY");
                         q++;
                     }
+                    setTmpGatePairs(gatePairs_tmp);
                 }
                 else
                 {
-                    int[][] gatePairs_tmp = new int[gatePairs_epk.length+amountAddGate][2];
-                    while(gatePairs_tmp.length-1 > k)
-                    {
+                    int[][] gatePairs_tmp = new int[gatePairs_epk.length + amountAddGate][2];
+                    while (gatePairs_tmp.length - 1 > k) {
                         gatePairs_tmp[k][0] = gatePairs_epk[k][0];
                         gatePairs_tmp[k][1] = gatePairs_epk[k][1];
                         k++;
@@ -190,37 +170,76 @@ public class EPK {
                     k = 0;
                     setTmpGatePairs(gatePairs_tmp);
                 }
-                //gatePairs = gatePairs_epk;
-                //gatePairs_tmp = getGatePairs_tmp();
-                //if(gatePairs_tmp.length < gatePairs_epk.length +2)
 
 
+                gatePairs_tmp[gatePairs_tmp.length - 1][0] = rnd.nextInt(gatePairs_epk[i][0] + 1);
+                while (gatePairs_tmp[gatePairs_tmp.length - 1][0] >= gatePairs_epk[i][0]) {
+                    gatePairs_tmp[gatePairs_tmp.length - 1][0] = gatePairs_epk[i][0] - 1;
+                }
+                if (gatePairs_tmp[gatePairs_tmp.length - 1][0] < 2) {
+                    gatePairs_tmp[gatePairs_tmp.length - 1][0] = 2;
+                }
 
-                    gatePairs_tmp[gatePairs_tmp.length-1][0] = rnd.nextInt(gatePairs_epk[i][0]+1);
-                    while(gatePairs_tmp[gatePairs_tmp.length-1][0] >= gatePairs_epk[i][0])
-                    {
-                        gatePairs_tmp[gatePairs_tmp.length-1][0] = gatePairs_epk[i][0]-1;
-                    }
-                    if(gatePairs_tmp[gatePairs_tmp.length-1][0] < 1)
-                    {
-                        gatePairs_tmp[gatePairs_tmp.length-1][0] = 1;
-                    }
-
-                    gatePairs_tmp[gatePairs_tmp.length-1][1] = gatePairs_epk[i][0];
+                gatePairs_tmp[gatePairs_tmp.length - 1][1] = gatePairs_epk[i][0];
 
 
                 setTmpGatePairs(gatePairs_tmp);
-            }
-            else
-            {
+            } else {
                 connectedFlag = false;
             }
+
             i++;
 
+            if(i == gatePairs_epk.length)
+            {
+                while(gatePairs_tmp.length > l && !(gatePairs_tmp == null)) {
+                    if (!(checkGatePairsTmp(gatePairs_tmp[l][0]))) {
+                        i = 0;
+                        l= 0;
+                        break;
+                    }
+                    else if(l==gatePairs_tmp.length -1)
+                    {
+                        int i_lastPair = 0;
+                        int[][] gatePairs_tmp2 = getGatePairs_tmp();
+                        int[][] gatePairs_tmp = new int[gatePairs_tmp2.length+1][2];
+                        while(gatePairs_tmp2.length>i_lastPair)
+                        {
+                             gatePairs_tmp[i_lastPair][0] = gatePairs_tmp2[i_lastPair][0];
+                             gatePairs_tmp[i_lastPair][1] = gatePairs_tmp2[i_lastPair][1];
+                             i_lastPair++;
+                        }
+                        gatePairs_tmp[i_lastPair][0] = 1;
+                        gatePairs_tmp[i_lastPair][1] = 2;
+//                        gatePairs_tmp[i_lastPair][0] = gatePosition.get(0);
+//                        gatePairs_tmp[i_lastPair][1] = gatePosition.get(1);
+                        setGatePairs_epk(gatePairs_tmp);
+                        setTmpGatePairs(gatePairs_tmp);
+//                        l++;
+                        setGatePosition(gatePosition);
+                        return epkList;
+                    }
+
+//                    while(m < l)
+//                    {
+//                        if(gatePosition.get(m) == gatePairs_tmp[l][0])
+//                        {
+//                            boolean checkAllConnected = true;
+//                        }
+//                        else
+//                        {
+//
+//                        }
+//                    }
+
+                    l++;
+                }
+
+            }
         }
 
         setGatePosition(gatePosition);
-        if(getGatePairs_tmp().length > 0)
+        if(getGatePairs_tmp() != null)
         {
             setGatePairs_epk(getGatePairs_tmp());
         }
@@ -233,15 +252,25 @@ public class EPK {
 
     public boolean checkGatePairsTmp(int checkNumber)
     {
-        int[][] gateCheck = getGatePairs_tmp();
+        int[][] gateCheck = getGatePairs();
+        if(getGatePairs_tmp() != null)
+        {
+            gateCheck = getGatePairs_tmp();
+        }
         int i = 0;
         boolean connectedFlag = false;
 
         while(gateCheck.length > i)
         {
-            if(gateCheck[i][1] == checkNumber)
+            if(checkNumber == 1)
             {
                 connectedFlag = true;
+                break;
+            }
+            else if(gateCheck[i][1] == checkNumber)
+            {
+                connectedFlag = true;
+                break;
             }
             i++;
         }
@@ -286,7 +315,7 @@ public class EPK {
     }
 
     public void setGatePairs(int[][] gatePairs) {
-        this.gatePairs = randomTree2.getGatePairs();
+        this.gatePairs = RandomTree.getGatePairs();
     }
 
 

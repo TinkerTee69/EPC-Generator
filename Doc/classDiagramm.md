@@ -1,6 +1,6 @@
 # Projektseminar
 
-```mermaid
+```Mermaid
 classDiagram
     class Task{
         int difficulty
@@ -25,7 +25,7 @@ classDiagram
         showHint()
     }
     
-    class generatorEPK{
+    class GeneratorEPK{
         int amountGates
         int amountEvents
         int amountFunctions
@@ -36,7 +36,7 @@ classDiagram
         calcAmountFunctions()
     }
 
-generatorEPK o-- Task
+GeneratorEPK o-- Task
 generatorSolution o-- Task
 generatorTask o-- Task
-generatorEPK o-- generatorTask
+GeneratorEPK o-- generatorTask

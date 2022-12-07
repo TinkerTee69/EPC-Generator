@@ -1,5 +1,5 @@
 import java.util.*;
-public class generatorEPK {
+public class GeneratorEPK {
 
     public void setAmountGates(Integer amountGates) {
         this.amountGates = amountGates;
@@ -9,10 +9,6 @@ public class generatorEPK {
 
     public void setAmountEvents(Integer amountEvents) {
         this.amountEvents = amountEvents;
-    }
-
-    public Integer getAmountFunctions() {
-        return amountFunctions;
     }
 
     public void setAmountFunctions(Integer amountFunctions) {
@@ -41,25 +37,25 @@ public class generatorEPK {
     private final eventList evtList = new eventList(evt);
 
 
-    public void calcAmountGates(int difficulty, int knotGrade, int length){
-        amountGates = Math.round((float)(difficulty + knotGrade + length)/3);
-        if(knotGrade != length){
-            amountGates = (int)Math.floor((float)amountGates * (float)(knotGrade/length));
-        }
-
-        if(length == 2){
-            amountGates = (int)Math.ceil(amountGates * 1.51);
-        }
-
-        if(length == 3){
-            amountGates = (int)Math.ceil(amountGates * 2);
-        }
-
-        if(amountGates == 0){
-            amountGates++;
-        }
-        System.out.println("Anzahl Gates: " + amountGates);
-    }
+//    public void calcAmountGates(int difficulty, int knotGrade, int length){
+//        amountGates = Math.round((float)(difficulty + knotGrade + length)/3);
+//        if(knotGrade != length){
+//            amountGates = (int)Math.floor((float)amountGates * (float)(knotGrade/length));
+//        }
+//
+//        if(length == 2){
+//            amountGates = (int)Math.ceil(amountGates * 1.51);
+//        }
+//
+//        if(length == 3){
+//            amountGates = (int)Math.ceil(amountGates * 2);
+//        }
+//
+//        if(amountGates == 0){
+//            amountGates++;
+//        }
+//        System.out.println("Anzahl Gates: " + amountGates);
+//    }
 
     public void calcAmountEvents(){
         //amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
@@ -89,6 +85,7 @@ public class generatorEPK {
         int difficulty = 3;
         while(i < amountGates) {
             i++;
+            // aktuell ist difficulty auf 3 gestellt
             if (difficulty == 1) {
                 if(amountAND >= ((float) (1.5 * amountOR + 1))) {
                     typeGate.add("OR");
