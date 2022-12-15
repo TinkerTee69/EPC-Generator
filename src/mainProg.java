@@ -3,10 +3,12 @@ public class mainProg {
     public static void main(String[] args) {
         Parameters parameters = new Parameters();
         GeneratorEPK generate_epk = new GeneratorEPK();
-        RandomTree rndTree = new RandomTree();
-        parameters.setGates(generate_epk);
-        parameters.setEvents(generate_epk);
-        parameters.setFunctions(generate_epk);
+//        RandomTree rndTree = new RandomTree();
+        parameters.setLoops(generate_epk);
+        parameters.setRhomben(generate_epk);
+//        parameters.setGates(generate_epk);
+//        parameters.setEvents(generate_epk);
+//        parameters.setFunctions(generate_epk);
 
         //generatorTask taskText = new generatorTask();
 
@@ -15,19 +17,22 @@ public class mainProg {
         //task.setLength();
         //generate_epk.calcAmountGates(task.getDifficulty(), task.getKnotGrade(), task.getLength());
 
-        generate_epk.calcAmountEvents();
-        generate_epk.calcAmountFunctions();
+        generate_epk.setAmountGates((generate_epk.getAmountRhomben()));
+        //generate_epk.calcAmountEvents();
+        //generate_epk.calcAmountFunctions();
         generate_epk.randomizeTypeGate();
 
+        EPK_new epk_new = new EPK_new(generate_epk);
 
-        rndTree.generateRandomTree(generate_epk.getAmountGates());
 
-        EPK epk = new EPK();
+        //rndTree.generateRandomTree(generate_epk.getAmountGates());
+
+        //EPK epk = new EPK();
         //epk.show();
 
 
-        Mermaid mermaid = new Mermaid();
-        mermaid.generateMermaid(epk);
+//        Mermaid mermaid = new Mermaid();
+//        mermaid.generateMermaid(epk);
 
 //        OR or = new OR();
 //        List<Integer> position = new ArrayList<>();

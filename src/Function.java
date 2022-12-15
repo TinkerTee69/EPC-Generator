@@ -1,15 +1,19 @@
 public class Function {
-    public Function(Integer postion, String functionText) {
-        this.postion = postion;
+
+    private Integer id;
+    private String functionText;
+
+    public Function(Integer id, String functionText) {
+        this.id = id;
         this.functionText = functionText;
     }
 
-    public Integer getPostion() {
-        return postion;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPostion(Integer postion) {
-        this.postion = postion;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFunctionText() {
@@ -19,9 +23,6 @@ public class Function {
     public void setFunctionText(String functionText) {
         this.functionText = functionText;
     }
-
-    private Integer postion;
-    private String functionText;
 
     public Function() {
     }

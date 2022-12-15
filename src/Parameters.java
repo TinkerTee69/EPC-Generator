@@ -4,6 +4,26 @@ public class Parameters {
     private Integer gates;
     private Integer events;
     private Integer functions;
+    private Integer loops;
+    private Integer rhomben;
+
+
+
+    public void setLoops(GeneratorEPK generate_epk) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose amount of Loops: ");
+        this.loops = Integer.parseInt(sc.nextLine());
+        generate_epk.setAmountLoops(this.loops);
+    }
+
+
+    public void setRhomben(GeneratorEPK generate_epk) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose amount of Rhomben: ");
+        this.rhomben = Integer.parseInt(sc.nextLine());
+        generate_epk.setAmountRhomben(this.rhomben);
+    }
+
 
     public void setGates(GeneratorEPK generate_epk) {
         Scanner sc = new Scanner(System.in);
@@ -26,6 +46,14 @@ public class Parameters {
         System.out.println("Choose amount of Functions: ");
         this.functions = Integer.parseInt(sc.nextLine());
         generate_epk.setAmountFunctions(this.functions);
+    }
+
+    public Integer getLoops() {
+        return loops;
+    }
+
+    public Integer getRhomben() {
+        return rhomben;
     }
 }
 

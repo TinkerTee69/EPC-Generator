@@ -18,6 +18,8 @@ public class GeneratorEPK {
     private Integer amountEvents;
     private Integer amountFunctions;
 
+    Parameters parameters = new Parameters();
+
     public List<String> getTypeGate() {
         return typeGate;
     }
@@ -26,13 +28,15 @@ public class GeneratorEPK {
     private Integer amountAND = 0;
     private Integer amountOR = 0;
     private Integer amountXOR = 0;
+    private Integer amountLoops;
+    private Integer amountRhomben;
 
     private final List<Integer> position = new ArrayList<>();
 
     List<Object> gates = new ArrayList<>();
-    private final gateList gate = new gateList(gates);
+    private gateList gate = new gateList(gates);
     List<Object> func = new ArrayList<>();
-    private final functionList functions = new functionList(func);
+    private final functionList functions = new functionList();
     List<Object> evt = new ArrayList<>();
     private final eventList evtList = new eventList(evt);
 
@@ -56,6 +60,26 @@ public class GeneratorEPK {
 //        }
 //        System.out.println("Anzahl Gates: " + amountGates);
 //    }
+
+
+
+    public Integer getAmountLoops() {
+        return amountLoops;
+    }
+
+    public void setAmountLoops(Integer amountLoops) {
+        this.amountLoops = amountLoops;
+    }
+
+    public Integer getAmountRhomben() {
+        return amountRhomben;
+    }
+
+    public void setAmountRhomben(Integer amountRhomben) {
+        this.amountRhomben = amountRhomben;
+    }
+
+
 
     public void calcAmountEvents(){
         //amountEvents = Math.round((float)(difficulty + knotGrade + length))*2;
@@ -116,42 +140,52 @@ public class GeneratorEPK {
             }
             if (difficulty == 3) {
                 if (amountAND >= (float) (1.3 * amountOR + 1)) {
-                    typeGate.add("OR");
+                    //typeGate.add("OR");
+                    OR or = new OR(i, 0);
+                    gate.addElement(or);
                     amountOR++;
                     continue;
                 }
                 if (amountOR >= (float) (amountXOR + 1)) {
-                    typeGate.add("XOR");
+                    //typeGate.add("XOR");
+                    XOR xor = new XOR(i, 0);
+                    gate.addElement(xor);
                     amountXOR++;
                 }
                 else {
-                    typeGate.add("AND");
+                    //typeGate.add("AND");
+                    AND and = new AND(i, 0);
+                    gate.addElement(and);
                     amountAND++;
                 }
             }
         }
-        Collections.shuffle(typeGate);
-        for(int k = 0; k < typeGate.size();k++)
-        {
-            if(Objects.equals(typeGate.get(k), "AND"))
-            {
-                AND and = new AND(k);
-                gate.addElement(and);
-            }
-            else if(Objects.equals(typeGate.get(k), "OR"))
-            {
-                OR or = new OR(k);
-                gate.addElement(or);
-            }
-            else
-            {
-                XOR xor = new XOR(k);
-                gate.addElement(xor);
-            }
-        }
+//        Collections.shuffle(typeGate);
+
+        Collections.shuffle(gateList.getGateList());
+        //gate.setGateList(gateList.getGateList());
+//        for(int k = 0; k < typeGate.size();k++)
+//        {
+//            if(Objects.equals(typeGate.get(k), "AND"))
+//            {
+//                AND and = new AND(k);
+//                gate.addElement(and);
+//            }
+//            else if(Objects.equals(typeGate.get(k), "OR"))
+//            {
+//                OR or = new OR(k);
+//                gate.addElement(or);
+//            }
+//            else
+//            {
+//                XOR xor = new XOR(k);
+//                gate.addElement(xor);
+//            }
+//        }
         System.out.println("Types of gates: " + typeGate);
-        System.out.println("Gatelist: " + gate.getGateList());
+        System.out.println("Gatelist: " + gateList.getGateList());
     }
+
 
     public Integer getAmountGates() {
         return amountGates;
