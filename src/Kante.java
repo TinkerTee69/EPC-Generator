@@ -1,12 +1,14 @@
 public class Kante {
     private Integer startID;
     private Integer endID;
-    private Integer kantenID;
+    private Integer kantenID = 0;
+    private Object refernceStart;
+    private Object referenceEnd;
 
-    public Kante(Integer startID, Integer endID, Integer kantenID) {
+    public Kante(Integer startID, Integer endID) {
         this.startID = startID;
         this.endID = endID;
-        this.kantenID = kantenID;
+        kantenID = kantenID();
     }
 
     public Integer kantenID(){
@@ -35,6 +37,6 @@ public class Kante {
     }
 
     public void setKantenID(Integer kantenID) {
-        this.kantenID = kantenID;
+        kantenID = this.kantenID++ + 1;
     }
 }

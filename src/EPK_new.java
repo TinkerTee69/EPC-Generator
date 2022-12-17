@@ -25,7 +25,7 @@ public class EPK_new {
         EPK_Element endElement = new EPK_Element(0,0, fct,id);
 
 
-        Kante kante = new Kante(evt.getId(), fct.getId(), 1);
+        ForwardKante kante = new ForwardKante(evt.getId(), fct.getId());
         kantenList.add(kante);
 
         Parameters parameters = new Parameters();
@@ -36,65 +36,49 @@ public class EPK_new {
         list.add(kante);
         list.add(endElement);
         int i = 0;
+        int i_rhombus = amountRhombus;
+        int i_loop = amountLoops;
         while((amountLoops + amountRhombus) > i)
         {
-            List<Object> tmp_list = list;
-            //Rhombus
-            if(rndLoopRhombus.nextInt() % 2 == 0)
+            kantenIndex = rndKante(kantenList);
+
+            if(i_rhombus > 0)
             {
-                for(int j = 0; j < list.size(); j++)
+                Random rndGate = new Random();
+                Object rhombus;
+                if(rndGate.nextInt(3)%3==0)
                 {
-                    kantenIndex = rndKante(kantenList);
-                    if(list.get(j) instanceof Kante && (kantenIndex == ((Kante) list.get(j)).getKantenID()))
-                    {
-                        Random rndGate = new Random();
-                        Object gate, gate2 = new Object();
-                        if(rndGate.nextInt(3)%3==0)
-                        {
-                            gate = new AND(++id,0);
-                            gate2 = new AND(id+1, 0);
-                        }
-                        else if(rndGate.nextInt(3)%3==1)
-                        {
-                            gate = new OR(++id,0);
-                            gate2 = new OR(id+1,0);
-                        }
-                        else
-                        {
-                            gate = new XOR(++id,0);
-                            gate2 = new XOR(id+1,0);
-                        }
-                        list.add(id, gate);
-
-                        //kantenList.remove()
-                        ((Kante) list.get(j)).setEndID(id);
-                        //die 2 neuen Kanten
-                        Kante kante1 = new Kante(id,id+1,kante.kantenID());
-                        Kante kante2 = new Kante(id,id+1,kante.kantenID());
-
-                        list.add(kante1);
-                        list.add(kante2);
-                        list.add(gate2);
-
-                        // Kante vom letzten hinzugefügten Element zum nachfolgendem Element
-                        Kante kante3 = new Kante(++id, id-2,kante.kantenID());
-                        kantenList.add(kante1);
-                        kantenList.add(kante2);
-                        kantenList.add(kante3);
-                        list.add(kante3);
-
-                        i++;
-                        break;
-                    }
+                    rhombus = new AndRhombus(kantenIndex, list, id, kantenList);
                 }
+                else if(rndGate.nextInt(3)%3==1)
+                {
+                    rhombus = new OrRhombus(kantenIndex, list, id, kantenList);
+                }
+                else
+                {
+                    rhombus = new XorRhombus(kantenIndex, list, id, kantenList);
+                }
+                list.add(rhombus);
+                i_rhombus--;
             }
+            else if(i_loop > 0)
+            {
+                Loop loop = new Loop(kantenIndex, list, id, kantenList);
+                list.add(loop);
+                i_loop--;
+            }
+            else
+            {
+//                break;
+            }
+            i++;
         }
-        System.out.println("bla");
+    System.out.println("Liste: " + list);
     }
+
 
     public Integer rndKante(List<Kante> kantenList)
     {
-
         Random random = new Random();
         return random.nextInt(kantenList.size())+1;
     }
