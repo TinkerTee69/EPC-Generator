@@ -64,10 +64,6 @@ public class EPK_new {
                 list.add(loop);
                 i_loop--;
             }
-            else
-            {
-//                break;
-            }
             i++;
         }
         System.out.println("KantenListe: " + kantenList);
