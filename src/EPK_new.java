@@ -1,5 +1,3 @@
-import javax.sound.midi.SysexMessage;
-import javax.xml.stream.events.EndElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,13 +23,12 @@ public class EPK_new {
         EPK_Element endElement = new EPK_Element(0,0, fct,id);
 
 
-        ForwardKante kante = new ForwardKante(evt.getId(), fct.getId());
-        kantenList.add(kante);
-
         Parameters parameters = new Parameters();
         Integer amountLoops = generatorEPK.getAmountLoops();
         Integer amountRhombus = generatorEPK.getAmountRhomben();
 
+        ForwardKante kante = new ForwardKante(evt.getId(), fct.getId(), evt, fct);
+        kantenList.add(kante);
         list.add(startElement);
         list.add(kante);
         list.add(endElement);
@@ -45,25 +42,25 @@ public class EPK_new {
             if(i_rhombus > 0)
             {
                 Random rndGate = new Random();
-                Object rhombus;
-                if(rndGate.nextInt(3)%3==0)
+                Rhombus rhombus;
+                if(rndGate.nextInt(3)==0)
                 {
-                    rhombus = new AndRhombus(kantenIndex, list, id, kantenList);
+                    rhombus = new AndRhombus(kantenIndex, list, id, kantenList, new AND(id, 0), new AND(++id, 0));
                 }
-                else if(rndGate.nextInt(3)%3==1)
+                else if(rndGate.nextInt(3)==1)
                 {
-                    rhombus = new OrRhombus(kantenIndex, list, id, kantenList);
+                    rhombus = new OrRhombus(kantenIndex, list, id, kantenList, new OR(id,0), new OR(++id, 0));
                 }
                 else
                 {
-                    rhombus = new XorRhombus(kantenIndex, list, id, kantenList);
+                    rhombus = new XorRhombus(kantenIndex, list, id, kantenList, new XOR(id, 0), new XOR(++id, 0));
                 }
                 list.add(rhombus);
                 i_rhombus--;
             }
             else if(i_loop > 0)
             {
-                Loop loop = new Loop(kantenIndex, list, id, kantenList);
+                Loop loop = new Loop(kantenIndex, list, id, kantenList, new OR(++id, 0), new XOR(++id, 0));
                 list.add(loop);
                 i_loop--;
             }
@@ -73,6 +70,7 @@ public class EPK_new {
             }
             i++;
         }
+        System.out.println("KantenListe: " + kantenList);
     System.out.println("Liste: " + list);
     }
 
