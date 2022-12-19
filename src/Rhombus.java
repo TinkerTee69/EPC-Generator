@@ -1,6 +1,4 @@
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 public class Rhombus extends RhombusOrLoop{
 

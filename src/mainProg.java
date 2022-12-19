@@ -31,8 +31,8 @@ public class mainProg {
         //epk.show();
 
 
-//        Mermaid mermaid = new Mermaid();
-//        mermaid.generateMermaid(epk);
+        Mermaid mermaid = new Mermaid();
+        mermaid.generateMermaid(epk_new);
 
 //        OR or = new OR();
 //        List<Integer> position = new ArrayList<>();

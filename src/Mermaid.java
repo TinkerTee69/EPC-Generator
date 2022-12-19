@@ -3,8 +3,36 @@ import java.util.List;
 
 public class Mermaid {
 
-    public void generateMermaid(EPK epk) {
-
+    public void generateMermaid(EPK_new epk) {
+        System.out.println("\n\n\nflowchart TD");
+        int i = 0;
+        while (epk.getList().size() > i)
+        {
+            if(epk.getList().get(i) instanceof EPK_Element && ((EPK_Element) epk.getList().get(i)).getType() instanceof Event)
+            {
+                System.out.println(((EPK_Element) epk.getList().get(i)).getId() + "" + "[" + (((EPK_Element) epk.getList().get(i)).getText()) + "]");
+            }
+            else if (epk.getList().get(i) instanceof EPK_Element && ((EPK_Element) epk.getList().get(i)).getType() instanceof Function) {
+                System.out.println(((EPK_Element) epk.getList().get(i)).getId() + "" + "([" + (((EPK_Element) epk.getList().get(i)).getText()) + "])");
+                //fctList.add(i);
+            } else if (epk.getList().get(i) instanceof OrRhombus) {
+                System.out.println(((OrRhombus) epk.getList().get(i)).getId() + "" + "{" + ((OrRhombus) epk.getList().get(i)).getId() + " OR}");
+            } else if (epk.getList().get(i) instanceof XorRhombus) {
+                System.out.println(((XorRhombus) epk.getList().get(i)).getId() + "" + "{" + ((XorRhombus) epk.getList().get(i)).getId() + " XOR}");
+            } else if (epk.getList().get(i) instanceof AndRhombus) {
+                System.out.println(((AndRhombus) epk.getList().get(i)).getId() + "" + "{" + ((AndRhombus) epk.getList().get(i)).getId() + " AND}");
+            } else if (epk.getList().get(i) instanceof Loop) {
+                System.out.println(((Loop) epk.getList().get(i)).getId() + "" + "{" + ((Loop) epk.getList().get(i)).getId() + " Loop OR}");
+                System.out.println(((Loop) epk.getList().get(i)).getId()+1 + "" + "{" + (((Loop) epk.getList().get(i)).getId()+1) + " Loop XOR}");
+            } else if (epk.getList().get(i) instanceof Kante) {
+                System.out.println(((Kante) epk.getList().get(i)).getStartID() + " -->|" + ((Kante) epk.getList().get(i)).getKantenID() + "|" + ((Kante) epk.getList().get(i)).getEndID());
+            }
+            i++;
+        }
+        System.out.println();
+    }
+}
+/*
         int i = 0;
 
         System.out.println("\n\n\nflowchart TD");
@@ -70,7 +98,7 @@ public class Mermaid {
             }
             // i++;
 //            }catch(Exception e){}
-        }
+        }*/
 
 //        try {
 //            while (epk.getGatePairs_epk().length > i) {
@@ -113,9 +141,6 @@ public class Mermaid {
 //            }
 //        }catch (Exception e){}
 
-
-    }
-}
 
 
 

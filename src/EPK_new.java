@@ -5,22 +5,23 @@ import java.util.Random;
 public class EPK_new {
 
     List<Kante> kantenList = new ArrayList<>();
+    List<Object> list = new ArrayList<>();
 
     public EPK_new(GeneratorEPK generatorEPK) {
-        List<Object> list = new ArrayList<>();
+        //List<Object> list = new ArrayList<>();
         Integer id = 0;
         int kantenIndex;
         Random rndLoopRhombus = new Random();
         Event evt = new Event(++id, "Event Text");
 
-        EPK_Element startElement = new EPK_Element(0,0, evt, id);
+        EPK_Element startElement = new EPK_Element(0,0, evt, id, evt.getEventText());
 
         Function fct = new Function(++id, "Function Text");
 
         //functionList.addElement(fct);
         //eventList.addElement(evt);
 
-        EPK_Element endElement = new EPK_Element(0,0, fct,id);
+        EPK_Element endElement = new EPK_Element(0,0, fct,id, fct.getFunctionText());
 
 
         Parameters parameters = new Parameters();
@@ -67,13 +68,29 @@ public class EPK_new {
             i++;
         }
         System.out.println("KantenListe: " + kantenList);
-    System.out.println("Liste: " + list);
-    }
+        System.out.println("Liste: " + list);
 
+    }
 
     public Integer rndKante(List<Kante> kantenList)
     {
         Random random = new Random();
         return random.nextInt(kantenList.size())+1;
+    }
+
+    public List<Kante> getKantenList() {
+        return kantenList;
+    }
+
+    public void setKantenList(List<Kante> kantenList) {
+        this.kantenList = kantenList;
+    }
+
+    public List<Object> getList() {
+        return list;
+    }
+
+    public void setList(List<Object> list) {
+        this.list = list;
     }
 }
