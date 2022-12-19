@@ -4,40 +4,35 @@ public class RhombusOrLoop {
 
     public RhombusOrLoop(Integer kantenIndex, List<Object> list, Integer id, List<Kante> kantenList, Object refStart, Object refEnd)
     {
+        //Durchlaufen des EPKs, bis die zufällig ausgewählte Kante gefunden wurde
         for(int i = 0; i < list.size(); i++)
         {
             if(list.get(i) instanceof Kante)
                 if(((Kante) list.get(i)).getKantenID() == kantenIndex)
                 {
+                    //letzte Kante (von dem 2. Element des Rhombus/Loops zu dem vorherigen Endelement)
                     ForwardKante kante3 = new ForwardKante(id+2, id, refEnd, ((Kante) list.get(i)).getRefEnd());
-                    // von der vorherigen Kante das neue Zielelement ändern
-                    ((Kante) list.get(i)).setEndID(id);
-                    ((Kante) list.get(i)).setRefEnd(refEnd);
+                    list.add(kante3);
+                    kantenList.add(kante3);
 
-                    this.setId(++id);
+                    // von der vorherigen Kante das neue Zielelement ändern (zu dem neu zu erstellenden Rhombus/Loop)
+                    ((Kante) list.get(i)).setEndID(++id);
+                    ((Kante) list.get(i)).setRefEnd(refStart);
+
+                    //Setzten der IDs des neuen Rhombus/Loops
+                    this.setId(id);
                     this.setStartGateID(id);
                     this.setEndGateID(id+1);
-                    //setId(id);
-
-                    //die 1 neue Kante (die 2. wird bei Loop / Rhombus hinzugefügt)
-                    ForwardKante kante1 = new ForwardKante(id,id+1, refStart, refEnd);
-
-
-                    list.add(kante1);
-
-
-                    // Kante vom letzten hinzugefügten Element zum nachfolgendem Element
-                    id++;
-                    kantenList.add(kante1);
-
-                    kantenList.add(kante3);
-                    list.add(kante3);
-
                     this.setKantenList(kantenList);
                     this.setRefStart(refStart);
                     this.setRefEnd(refEnd);
 
+                    //die 1 neue Kante (die 2. wird bei der Klasse Rhombus bzw. Loop hinzugefügt)
+                    ForwardKante kante1 = new ForwardKante(id,id+1, refStart, refEnd);
+                    list.add(kante1);
+                    kantenList.add(kante1);
 
+                    id++;
                     break;
                 }
         }

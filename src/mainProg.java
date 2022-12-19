@@ -1,11 +1,12 @@
 public class mainProg {
 
     public static void main(String[] args) {
-        Parameters parameters = new Parameters();
-        GeneratorEPK generate_epk = new GeneratorEPK();
+
+        //GeneratorEPK generate_epk = new GeneratorEPK();
 //        RandomTree rndTree = new RandomTree();
-        parameters.setLoops(generate_epk);
-        parameters.setRhomben(generate_epk);
+        Parameters parameters = new Parameters();
+        parameters.setLoops();
+        parameters.setRhomben();
 //        parameters.setGates(generate_epk);
 //        parameters.setEvents(generate_epk);
 //        parameters.setFunctions(generate_epk);
@@ -17,12 +18,12 @@ public class mainProg {
         //task.setLength();
         //generate_epk.calcAmountGates(task.getDifficulty(), task.getKnotGrade(), task.getLength());
 
-        generate_epk.setAmountGates((generate_epk.getAmountRhomben()));
+        //generate_epk.setAmountGates((generate_epk.getAmountRhomben()));
         //generate_epk.calcAmountEvents();
         //generate_epk.calcAmountFunctions();
-        generate_epk.randomizeTypeGate();
+        //generate_epk.randomizeTypeGate();
 
-        EPK_new epk_new = new EPK_new(generate_epk);
+        EPK_new epk_new = new EPK_new(parameters);
 
 
         //rndTree.generateRandomTree(generate_epk.getAmountGates());

@@ -17,10 +17,13 @@ public class Mermaid {
                 //fctList.add(i);
             } else if (epk.getList().get(i) instanceof OrRhombus) {
                 System.out.println(((OrRhombus) epk.getList().get(i)).getId() + "" + "{" + ((OrRhombus) epk.getList().get(i)).getId() + " OR}");
+                System.out.println((((OrRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((OrRhombus) epk.getList().get(i)).getId()+1) + " OR}");
             } else if (epk.getList().get(i) instanceof XorRhombus) {
                 System.out.println(((XorRhombus) epk.getList().get(i)).getId() + "" + "{" + ((XorRhombus) epk.getList().get(i)).getId() + " XOR}");
+                System.out.println((((XorRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((XorRhombus) epk.getList().get(i)).getId()+1) + " XOR}");
             } else if (epk.getList().get(i) instanceof AndRhombus) {
                 System.out.println(((AndRhombus) epk.getList().get(i)).getId() + "" + "{" + ((AndRhombus) epk.getList().get(i)).getId() + " AND}");
+                System.out.println((((AndRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((AndRhombus) epk.getList().get(i)).getId()+1) + " AND}");
             } else if (epk.getList().get(i) instanceof Loop) {
                 System.out.println(((Loop) epk.getList().get(i)).getId() + "" + "{" + ((Loop) epk.getList().get(i)).getId() + " Loop OR}");
                 System.out.println(((Loop) epk.getList().get(i)).getId()+1 + "" + "{" + (((Loop) epk.getList().get(i)).getId()+1) + " Loop XOR}");
