@@ -1,260 +1,45 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Mermaid {
 
     public void generateMermaid(EPK_new epk) {
-        System.out.println("\n\n\nflowchart TD");
+        Integer id, endId;
+        System.out.println("\n\n\ndigraph EPK_Edotor {rankdir=TD;\nsize=\"8,5\"");
         int i = 0;
         while (epk.getList().size() > i)
         {
-            if(epk.getList().get(i) instanceof EPK_Element && ((EPK_Element) epk.getList().get(i)).getType() instanceof Event)
+            if(epk.getList().get(i) instanceof Event)
             {
-                System.out.println(((EPK_Element) epk.getList().get(i)).getId() + "" + "[" + (((EPK_Element) epk.getList().get(i)).getText()) + "]");
+                System.out.println(((Event) epk.getList().get(i)).getId() +  "[label=\"" + ((Event) epk.getList().get(i)).getEventText() + "\", shape = haxagon];");
             }
-            else if (epk.getList().get(i) instanceof EPK_Element && ((EPK_Element) epk.getList().get(i)).getType() instanceof Function) {
-                System.out.println(((EPK_Element) epk.getList().get(i)).getId() + "" + "([" + (((EPK_Element) epk.getList().get(i)).getText()) + "])");
-                //fctList.add(i);
+            else if (epk.getList().get(i) instanceof Kante) {
+                id = ((Kante) epk.getList().get(i)).getId((EPK_Element) ((Kante) epk.getList().get(i)).getRefStart());
+                endId = ((Kante) epk.getList().get(i)).getId((EPK_Element) ((Kante) epk.getList().get(i)).getRefEnd());
+                System.out.println(id + " -> " + endId + "[ label = \"" + ((Kante) epk.getList().get(i)).getKantenID() + "\" ]");
+            }
+            else if (epk.getList().get(i) instanceof Function) {
+                System.out.println(((Function) epk.getList().get(i)).getId() + "[label=\"" + ((Function) epk.getList().get(i)).getFunctionText() + "\", style=rounded];");
             } else if (epk.getList().get(i) instanceof OrRhombus) {
-                System.out.println(((OrRhombus) epk.getList().get(i)).getId() + "" + "{" + ((OrRhombus) epk.getList().get(i)).getId() + " OR}");
-                System.out.println((((OrRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((OrRhombus) epk.getList().get(i)).getId()+1) + " OR}");
+                id = ((OrRhombus) epk.getList().get(i)).getId((OR) ((OrRhombus) epk.getList().get(i)).getRefStart());
+                endId = ((OrRhombus) epk.getList().get(i)).getId((OR) ((OrRhombus) epk.getList().get(i)).getRefEnd());
+                System.out.println(id + " [label=\"OR\", shape = circle];");
+                System.out.println((endId) + " [label=\"OR\", shape = circle];");
             } else if (epk.getList().get(i) instanceof XorRhombus) {
-                System.out.println(((XorRhombus) epk.getList().get(i)).getId() + "" + "{" + ((XorRhombus) epk.getList().get(i)).getId() + " XOR}");
-                System.out.println((((XorRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((XorRhombus) epk.getList().get(i)).getId()+1) + " XOR}");
+                id = ((XorRhombus) epk.getList().get(i)).getId((XOR) ((XorRhombus) epk.getList().get(i)).getRefStart());
+                endId = ((XorRhombus) epk.getList().get(i)).getId((XOR) ((XorRhombus) epk.getList().get(i)).getRefEnd());
+                System.out.println(id + " [label=\"XOR\", shape = circle];");
+                System.out.println((endId) + " [label=\"XOR\", shape = circle];");
             } else if (epk.getList().get(i) instanceof AndRhombus) {
-                System.out.println(((AndRhombus) epk.getList().get(i)).getId() + "" + "{" + ((AndRhombus) epk.getList().get(i)).getId() + " AND}");
-                System.out.println((((AndRhombus) epk.getList().get(i)).getId()+1) + "" + "{" + (((AndRhombus) epk.getList().get(i)).getId()+1) + " AND}");
+                id = ((AndRhombus) epk.getList().get(i)).getId((AND) ((AndRhombus) epk.getList().get(i)).getRefStart());
+                endId = ((AndRhombus) epk.getList().get(i)).getId((AND) ((AndRhombus) epk.getList().get(i)).getRefEnd());
+                System.out.println(id +  "[label=\"AND\", shape = circle];");
+                System.out.println(endId + " [label=\"AND\", shape = circle];");
             } else if (epk.getList().get(i) instanceof Loop) {
-                System.out.println(((Loop) epk.getList().get(i)).getId() + "" + "{" + ((Loop) epk.getList().get(i)).getId() + " Loop OR}");
-                System.out.println(((Loop) epk.getList().get(i)).getId()+1 + "" + "{" + (((Loop) epk.getList().get(i)).getId()+1) + " Loop XOR}");
-            } else if (epk.getList().get(i) instanceof Kante) {
-                System.out.println(((Kante) epk.getList().get(i)).getStartID() + " -->|" + ((Kante) epk.getList().get(i)).getKantenID() + "|" + ((Kante) epk.getList().get(i)).getEndID());
+                id = ((Loop) epk.getList().get(i)).getId((OR) ((Loop) epk.getList().get(i)).getRefStart());
+                endId = ((Loop) epk.getList().get(i)).getId((XOR) ((Loop) epk.getList().get(i)).getRefEnd());
+                System.out.println(id + "  [label=\"OR\", shape = circle];");
+                System.out.println((endId) + " [label=\"XOR\", shape = circle];");
             }
             i++;
         }
-        System.out.println();
+        System.out.println("}");
     }
 }
-/*
-        int i = 0;
-
-        System.out.println("\n\n\nflowchart TD");
-        List<Integer> gatePosition = epk.getGatePosition();
-        List<Integer> fctList = new ArrayList<>();
-        List<Integer> evtList = new ArrayList<>();
-
-
-        while (epk.getEpkList().size() > i) {
-            if (epk.getEpkList().get(i) instanceof Event) {
-                System.out.println(i + "" + "[" + ((Event) epk.getEpkList().get(i)).getEventText() + "]");
-                evtList.add(i);
-            } else if (epk.getEpkList().get(i) instanceof Function) {
-                System.out.println(i + "" + "([" + ((Function) epk.getEpkList().get(i)).getFunctionText() + "])");
-                fctList.add(i);
-            } else if (epk.getEpkList().get(i) instanceof OR) {
-                System.out.println(i + "" + "{OR}");
-            } else if (epk.getEpkList().get(i) instanceof XOR) {
-                System.out.println(i + "" + "{XOR}");
-            } else if (epk.getEpkList().get(i) instanceof AND) {
-                System.out.println(i + "" + "{AND}");
-            }
-
-            i++;
-        }
-
-
-        i = 0;
-        int i_fct = 0;
-        int i_evt = 0;
-        int j = 0;
-        int gate_id = 0;
-        int i_gate = 0;
-        int[][] translateArr = epk.getGatePairs_epk();
-        int[][] gatePairs = epk.getGatePairs_epk();
-        //while (epk.getEpkList().size() > i )
-        {
-            //if(epk.getEpkList().get(i) instanceof Function || epk.getEpkList().get(i) instanceof Event)
-            {
-                System.out.println();
-            }
-//            try {
-            while (gatePairs.length * 2 > j) {
-                if(gatePairs[j/2][0] == gatePairs[j/2][1])
-                {
-
-                }
-                else{
-
-                    if (j % 2 == 0) {
-                        System.out.print(gatePosition.get(-1 + gatePairs[j / 2][j % 2]) + " --> ");
-                        System.out.println(fctList.get(i_fct));
-
-                        System.out.println(fctList.get(i_fct) + " --> " + evtList.get(i_evt));
-                        i_fct++;
-                        i_evt++;
-                    } else {
-                        //System.out.println(gatePosition.get(-1 + gatePairs[j / 2][j % 2]));
-                        System.out.println(i_evt + " --> " + gatePosition.get(-1 + gatePairs[j / 2][j % 2]));
-                    }
-                }
-                j++;
-            }
-            // i++;
-//            }catch(Exception e){}
-        }*/
-
-//        try {
-//            while (epk.getGatePairs_epk().length > i) {
-//                while (epk.getEpkList().size() > j) {
-//                    if (epk.getEpkList().get(j) instanceof AND || epk.getEpkList().get(j) instanceof OR || epk.getEpkList().get(j) instanceof XOR) {
-//                        if (gate_id % 2 == 0) {
-//                            System.out.print(gatePairs[j / 2][j % 2] + " --> ");
-//                        } else {
-//                            System.out.println(gatePairs[j / 2][j % 2]);
-//                        }
-//                        gate_id++;
-//                    }
-//                    j++;
-//                }
-//                System.out.println();
-//                i++;
-//            }
-//        }catch (Exception e){}
-
-
-//        try {
-//            while (gatePairs.length * 2 > i) {
-//                while (epk.getEpkList().size() > j) {
-//                    if (gatePairs[i / 2][i % 2] == j) {
-//                        translateArr[i / 2][i % 2] = gatePosition.get(i_gate);
-//
-//                        if (i % 2 == 0) {
-//                            System.out.print(translateArr[i / 2][i % 2] + " --> ");
-//                        } else {
-//                            System.out.println(translateArr[i / 2][i % 2]);
-//                        }
-//                        i_gate++;
-//                        continue;
-//                    }
-//
-//                    j++;
-//                }
-//
-//                i++;
-//            }
-//        }catch (Exception e){}
-
-
-
-
-//import java.util.List;
-//
-//public class mermaid {
-//
-//    public void generateMermaid(EPK epk) {
-//
-//        int i = 0;
-//
-//        System.out.println("\n\n\nflowchart TD");
-//        List<Integer> gatePosition = epk.getGatePosition();
-//
-//
-//        while (epk.getEpkList().size() > i) {
-//            if (epk.getEpkList().get(i) instanceof Event) {
-//               // System.out.println(i + "" + "[" + ((Event) epk.getEpkList().get(i)).getEventText() + "]");
-//            } else if (epk.getEpkList().get(i) instanceof Function) {
-//                //System.out.println(i + "" + "([" + ((Function) epk.getEpkList().get(i)).getFunctionText() + "])");
-//            } else if (epk.getEpkList().get(i) instanceof OR) {
-//                System.out.println(i + "" + "{OR}");
-//            } else if (epk.getEpkList().get(i) instanceof XOR) {
-//                System.out.println(i + "" + "{XOR}");
-//            } else if (epk.getEpkList().get(i) instanceof AND) {
-//                System.out.println(i + "" + "{AND}");
-//            }
-//
-////            if(i>0)
-////            {
-////                System.out.println(i-1 + " --> " + i);
-////            }
-//
-//            i++;
-//        }
-//
-//        //System.out.println("0 --> 1\n1 --> 2");
-//
-//        i = 0;
-//        int j = 0;
-//        int gate_id = 0;
-//        int i_gate = 0;
-//        int[][] translateArr = epk.getGatePairs_epk();
-//        int[][] gatePairs = epk.getGatePairs_epk();
-//        //while (epk.getEpkList().size() > i )
-//        {
-//            //if(epk.getEpkList().get(i) instanceof Function || epk.getEpkList().get(i) instanceof Event)
-//            {
-//                System.out.println();
-//            }
-////            try {
-//                while (gatePairs.length * 2 > j) {
-//                    if(gatePairs[j/2][0] == gatePairs[j/2][1])
-//                    {
-//
-//                    }
-//                    else{
-//
-//                        if (j % 2 == 0) {
-//                            System.out.print(gatePosition.get(-1 + gatePairs[j / 2][j % 2]) + " --> ");
-//                        } else {
-//                            System.out.println(gatePosition.get(-1 + gatePairs[j / 2][j % 2]));
-//                        }
-//                    }
-//                    j++;
-//                }
-//                // i++;
-////            }catch(Exception e){}
-//        }
-//
-////        try {
-////            while (epk.getGatePairs_epk().length > i) {
-////                while (epk.getEpkList().size() > j) {
-////                    if (epk.getEpkList().get(j) instanceof AND || epk.getEpkList().get(j) instanceof OR || epk.getEpkList().get(j) instanceof XOR) {
-////                        if (gate_id % 2 == 0) {
-////                            System.out.print(gatePairs[j / 2][j % 2] + " --> ");
-////                        } else {
-////                            System.out.println(gatePairs[j / 2][j % 2]);
-////                        }
-////                        gate_id++;
-////                    }
-////                    j++;
-////                }
-////                System.out.println();
-////                i++;
-////            }
-////        }catch (Exception e){}
-//
-//
-////        try {
-////            while (gatePairs.length * 2 > i) {
-////                while (epk.getEpkList().size() > j) {
-////                    if (gatePairs[i / 2][i % 2] == j) {
-////                        translateArr[i / 2][i % 2] = gatePosition.get(i_gate);
-////
-////                        if (i % 2 == 0) {
-////                            System.out.print(translateArr[i / 2][i % 2] + " --> ");
-////                        } else {
-////                            System.out.println(translateArr[i / 2][i % 2]);
-////                        }
-////                        i_gate++;
-////                        continue;
-////                    }
-////
-////                    j++;
-////                }
-////
-////                i++;
-////            }
-////        }catch (Exception e){}
-//
-//
-//    }
-//}

@@ -1,17 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
+public class AND extends Gate{
 
-public class AND {
-    private Integer gateID;
     private Integer position;
-    public AND(Integer position) {
-        this.position = position;
+    public AND() {
+        super();
     }
 
-    public AND(Integer gateID, Integer position) {
-        this.gateID = gateID;
-        this.position = position;
-    }
 
     public Integer getPosition() {
         return position;
@@ -21,12 +14,9 @@ public class AND {
         this.position = position;
     }
 
-
-    public Integer getGateID() {
-        return gateID;
+    public Integer getID(){
+        return super.getID();
     }
 
-    public void setGateID(Integer gateID) {
-        this.gateID = gateID;
-    }
+
 }

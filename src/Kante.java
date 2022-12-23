@@ -1,14 +1,10 @@
 public class Kante {
-    private Integer startID;
-    private Integer endID;
     private static Integer counter = 0;
     private Integer kantenID;
     private Object refStart;
     private Object refEnd;
 
-    public Kante(Integer startID, Integer endID, Object refStart, Object refEnd) {
-        this.startID = startID;
-        this.endID = endID;
+    public Kante(Object refStart, Object refEnd) {
         setCounter(++counter);
         setKantenID(getCounter());
         kantenID = getKantenID();
@@ -16,23 +12,6 @@ public class Kante {
         this.refEnd = refEnd;
     }
 
-
-
-    public Integer getStartID() {
-        return startID;
-    }
-
-    public void setStartID(Integer startID) {
-        this.startID = startID;
-    }
-
-    public Integer getEndID() {
-        return endID;
-    }
-
-    public void setEndID(Integer endID) {
-        this.endID = endID;
-    }
 
     public Integer getKantenID() {
         return kantenID;
@@ -53,9 +32,9 @@ public class Kante {
     public Object getRefStart() {
         return refStart;
     }
-
-    public void setRefStart(Object refStart) {
-        this.refStart = refStart;
+    public Integer getId(EPK_Element epk_element)
+    {
+        return epk_element.getId();
     }
 
     public Object getRefEnd() {

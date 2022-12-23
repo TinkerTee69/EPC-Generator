@@ -1,14 +1,14 @@
-public class Event {
+public class Event extends EPK_Element{
     private Integer id;
     private String eventText;
 
-    public Event() {
+    public Event(Integer position, Integer level, String text) {
+        super(position, level);
+        this.eventText = text;
     }
 
-    public Event(Integer id, String eventText) {
-        this.id = id;
-        this.eventText = eventText;
-    }
+    public Event(){super();}
+
 
     public Integer getId() {
         return id;

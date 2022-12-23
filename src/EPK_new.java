@@ -17,17 +17,15 @@ public class EPK_new {
         Integer id = 0;
 
         //Erzeugung zweier Startelemente
-        Event evt = new Event(++id, "Event Text");
-        EPK_Element startElement = new EPK_Element(0,0, evt, id, evt.getEventText());
-        Function fct = new Function(++id, "Function Text");
-        EPK_Element endElement = new EPK_Element(0,0, fct,id, fct.getFunctionText());
+        Event evt = new Event(0,0,"Event Text");
+        Function fct = new Function(0, 0, "Function Text");
 
         //Erzeugung Startkante
-        ForwardKante kante = new ForwardKante(evt.getId(), fct.getId(), evt, fct);
+        ForwardKante kante = new ForwardKante(evt, fct);
         kantenList.add(kante);
-        list.add(startElement);
+        list.add(evt);
         list.add(kante);
-        list.add(endElement);
+        list.add(fct);
 
 
         while((amountLoops + amountRhombus) > i)
@@ -41,15 +39,15 @@ public class EPK_new {
                 Rhombus rhombus;
                 if(rndGate.nextInt(3)==0)
                 {
-                    rhombus = new AndRhombus(kantenIndex, list, id, kantenList, new AND(id, 0), new AND(++id, 0));
+                    rhombus = new AndRhombus(kantenIndex,list, kantenList, new AND(), new AND());
                 }
                 else if(rndGate.nextInt(3)==1)
                 {
-                    rhombus = new OrRhombus(kantenIndex, list, id, kantenList, new OR(id,0), new OR(++id, 0));
+                    rhombus = new OrRhombus(kantenIndex, list, kantenList, new OR(), new OR());
                 }
                 else
                 {
-                    rhombus = new XorRhombus(kantenIndex, list, id, kantenList, new XOR(id, 0), new XOR(++id, 0));
+                    rhombus = new XorRhombus(kantenIndex, list, kantenList, new XOR(), new XOR());
                 }
                 list.add(rhombus);
                 id++;
@@ -57,13 +55,12 @@ public class EPK_new {
             }
             else if(i_loop > 0)
             {
-                Loop loop = new Loop(kantenIndex, list, id, kantenList, new OR(++id, 0), new XOR(++id, 0));
+                Loop loop = new Loop(kantenIndex,list, kantenList, new OR(), new XOR());
                 list.add(loop);
                 i_loop--;
             }
             i++;
         }
-        kantenList = checkGates(kantenList);
     }
 
     public Integer rndKante(List<Kante> kantenList)
@@ -76,29 +73,6 @@ public class EPK_new {
         return random.nextInt(kantenList.size())+1;
     }
 
-    public List<Kante> checkGates(List<Kante> kantenList)
-    {
-        boolean check = true;
-        //while(check == true)
-        {
-            for (int i = 0; i < kantenList.size(); i++) {
-            //Wenn start und ende auf das gleiche Element zeigt
-                if (((Kante) kantenList.get(i)).getEndID() == ((Kante) kantenList.get(i)).getStartID()) {
-                    ((Kante) kantenList.get(i)).setEndID(((Kante) kantenList.get(i)).getEndID() + 1);
-                }
-                //if()
-            }
-        }
-        return kantenList;
-    }
-
-    public List<Kante> getKantenList() {
-        return kantenList;
-    }
-
-    public void setKantenList(List<Kante> kantenList) {
-        this.kantenList = kantenList;
-    }
 
     public List<Object> getList() {
         return list;
