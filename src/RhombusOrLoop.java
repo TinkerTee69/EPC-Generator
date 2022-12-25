@@ -107,14 +107,5 @@ public class RhombusOrLoop {
         this.refEnd = refEnd;
     }
 
-    public Integer getId(AND and) {
-        return and.getID();
-    }
-    public Integer getId(OR or) {
-        return or.getID();
-    }
-    public Integer getId(XOR xor) {
-        return xor.getID();
-    }
     public Integer getId(Gate gate){return gate.getId();}
 }

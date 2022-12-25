@@ -140,9 +140,10 @@ public class EPK_new {
                 for(int j = 0; list.size() > j; j++) {
                     if (list.get(j) instanceof Kante) {
                         //Wenn eine Kante das Element als Start referenziert, wird das Endreferenzelement angeschaut
-                        if (((Kante) list.get(j)).getRefStart().equals(((RhombusOrLoop) list.get(i)).getRefEnd()) ){
-                            //wenn danach ein Gate oder Event stattfindet, werden Elemente hinzugefügt
-                            if (((Kante) list.get(j)).getRefEnd() instanceof Gate) {
+                        if (((Kante) list.get(j)).getRefEnd().equals(((RhombusOrLoop) list.get(i)).getRefEnd()) ){
+                            System.out.println();
+                            //wenn danach ein Gate ist, werden Elemente hinzugefügt
+                            if (((Kante) list.get(j)).getRefStart() instanceof Gate) {
                                 //wenn das Element davor ein Gate ist
                                 Function fct = addFunctionAfter(i, j);
                                 addEventAfter(j, fct);
@@ -162,53 +163,42 @@ public class EPK_new {
         System.out.println();
     }
 
-    public void addEventBefore(int j, Function fct)
+    public Event addEventBefore(int kantenIndex, Function fct)
     {
         Event evt = new Event(0, 0, "Event Text");
         Kante kante = new ForwardKante(evt, fct);
-        ((Kante) list.get(j)).setRefEnd(evt);
-        list.add(evt);
-        list.add(kante);
-        setList(list);
-        kantenList.add(kante);
-        setKantenList(kantenList);
+        ((Kante) list.get(kantenIndex)).setRefEnd(evt);
+        add2list(evt,kante,list);
+        return evt;
     }
 
-    public Function addFunctionBefore(int i, int j)
+    public Function addFunctionBefore(int elementIndex, int kantenIndex)
     {
         Function fct = new Function(0, 0, "Function Text");
-        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(i)).getRefStart());
-        ((Kante) list.get(j)).setRefEnd(fct);
-        list.add(fct);
-        list.add(kante);
-        setList(list);
-        kantenList.add(kante);
-        setKantenList(kantenList);
+        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(elementIndex)).getRefStart());
+        ((Kante) list.get(kantenIndex)).setRefEnd(fct);
+        add2list(fct, kante, list);
         return fct;
     }
 
-    public void addEventAfter(int j, Function fct)
+    public Event addEventAfter(int kantenIndex, Function fct)
     {
         Event evt = new Event(0, 0, "Event Text");
         Kante kante = new ForwardKante(evt, fct);
-        ((Kante) list.get(j)).setRefStart(evt);
-        list.add(evt);
-        list.add(kante);
-        setList(list);
-        kantenList.add(kante);
-        setKantenList(kantenList);
+        ((Kante) list.get(kantenIndex)).setRefEnd(evt);
+        add2list(evt, kante, list);
+        return evt;
     }
 
-    public Function addFunctionAfter(int i, int j)
+    public Function addFunctionAfter(int elementIndex, int kantenIndex)
     {
         Function fct = new Function(0, 0, "Function Text");
-        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(i)).getRefEnd());
-        ((Kante) list.get(j)).setRefStart(fct);
-        list.add(fct);
-        list.add(kante);
-        setList(list);
-        kantenList.add(kante);
-        setKantenList(kantenList);
+        //Kante zwischen neuer Funktion und alten Endelement
+        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(elementIndex)).getRefEnd());
+        //vorhandene Kante anpassen an neues Startelement fct
+        ((Kante) list.get(kantenIndex)).setRefEnd(fct);
+        add2list(fct, kante, list);
+
         return fct;
     }
 
@@ -222,6 +212,13 @@ public class EPK_new {
         return random.nextInt(kantenList.size())+1;
     }
 
+    public void add2list(Object obj, Kante kante, List<Object> list){
+        list.add(obj);
+        list.add(kante);
+        setList(list);
+        kantenList.add(kante);
+        setKantenList(kantenList);
+    }
 
     public List<Object> getList() {
         return list;

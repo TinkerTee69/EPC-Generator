@@ -13,6 +13,13 @@ public class Parameters {
         setMinElements();
         setMaxElements();
     }
+    public Parameters(int i) {
+        setLoops(3);
+        setMaxElements(3);
+        setMinElements(3);
+        setRhomben(3);
+    }
+
 
     public void setLoops() {
         Scanner sc = new Scanner(System.in);
@@ -58,5 +65,21 @@ public class Parameters {
 
     public Integer getMaxElements() {
         return maxElements;
+    }
+
+    public void setLoops(Integer loops) {
+        this.loops = loops;
+    }
+
+    public void setRhomben(Integer rhomben) {
+        this.rhomben = rhomben;
+    }
+
+    public void setMinElements(Integer minElements) {
+        this.minElements = minElements;
+    }
+
+    public void setMaxElements(Integer maxElements) {
+        this.maxElements = maxElements;
     }
 }
