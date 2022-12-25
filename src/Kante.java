@@ -41,6 +41,10 @@ public class Kante {
         return refEnd;
     }
 
+    public void setRefStart(Object refStart) {
+        this.refStart = refStart;
+    }
+
     public void setRefEnd(Object refEnd) {
         this.refEnd = refEnd;
     }

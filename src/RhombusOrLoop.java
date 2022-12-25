@@ -1,8 +1,9 @@
 import java.util.List;
+import java.util.Random;
 
 public class RhombusOrLoop {
 
-    public RhombusOrLoop(Integer kantenIndex, List<Object> list, List<Kante> kantenList, Object refStart, Object refEnd) {
+    public RhombusOrLoop(Integer kantenIndex, List<Object> list, List<Kante> kantenList, Object refStart, Object refEnd, Parameters parameters) {
 
 
         //Durchlaufen des EPKs, bis die zufällig ausgewählte Kante gefunden wurde
@@ -16,6 +17,16 @@ public class RhombusOrLoop {
                     ForwardKante kante3 = new ForwardKante(refEnd, ((Kante) list.get(i)).getRefEnd());
                     list.add(kante3);
                     kantenList.add(kante3);
+
+                    //die zufällige Anzahl an Elementen wird bestimmt
+                    /*Random rnd = new Random();
+                    int rndAmountElements = rnd.nextInt(parameters.getMaxElements()- parameters.getMinElements())+parameters.getMinElements();
+
+                    for(int j = 0; rndAmountElements > j; j++){
+                        Function fct = addFunction();
+                        addEvent(,fct);
+                    }
+                    */
 
                     // von der vorherigen Kante das neue Zielelement ändern (zu dem neu zu erstellenden Rhombus/Loop)
                     ((Kante) list.get(i)).setRefEnd(refStart);
@@ -43,6 +54,30 @@ public class RhombusOrLoop {
 
 
 
+//    public void addEvent(int j, Function fct)
+//    {
+//        Event evt = new Event(0, 0, "Event Text");
+//        Kante kante = new ForwardKante(evt, fct);
+//        ((Kante) list.get(j)).setRefEnd(evt);
+//        list.add(evt);
+//        list.add(kante);
+//        setList(list);
+//        kantenList.add(kante);
+//        setKantenList(kantenList);
+//    }
+//
+//    public Function addFunction(int i, int j)
+//    {
+//        Function fct = new Function(0, 0, "Function Text");
+//        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(i)).getRefStart());
+//        ((Kante) list.get(j)).setRefEnd(fct);
+//        list.add(fct);
+//        list.add(kante);
+//        setList(list);
+//        kantenList.add(kante);
+//        setKantenList(kantenList);
+//        return fct;
+//    }
 
     public List<Kante> getKantenList() {
         return kantenList;
