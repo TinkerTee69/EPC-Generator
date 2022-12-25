@@ -8,6 +8,10 @@ public class Function extends EPK_Element{
         this.functionText = functionText;
     }
 
+    public Function(String functionText){
+        super();
+        this.functionText = functionText;
+    }
 
     public Function()
     {

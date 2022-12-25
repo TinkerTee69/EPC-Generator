@@ -9,6 +9,10 @@ public class Event extends EPK_Element{
 
     public Event(){super();}
 
+    public Event(String eventText) {
+        this.eventText = eventText;
+    }
+
 
     public Integer getId() {
         return id;

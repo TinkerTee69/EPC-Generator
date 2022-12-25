@@ -1,5 +1,5 @@
 EPK_new:
-    - Add methoden überarbeiten (unsiverselles davor/Dahinter einfügen)
+    - Add methoden überarbeiten (Verbindung starten ohne Vorelement)
     - parameters Min/ Max Elemente einfügen
 
 durch liste rhomebn laufen - je nach rhombusart wird vor öffnenden Gate Event/Funktion

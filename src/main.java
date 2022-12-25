@@ -1,4 +1,4 @@
-public class mainProg {
+public class main {
 
     public static void main(String[] args) {
         Parameters parameters = new Parameters(2);

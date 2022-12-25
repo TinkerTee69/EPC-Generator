@@ -6,7 +6,7 @@ public class EPK_new {
 
     List<Kante> kantenList = new ArrayList<>();
     List<Object> list = new ArrayList<>();
-    Object params;
+    Parameters params;
 
     public EPK_new(Parameters parameters) {
         setParams(parameters);
@@ -76,6 +76,7 @@ public class EPK_new {
 
     public void checkElementsBefore(){
         int i = 0;
+        Parameters parameters = getParams();
         while(list.size() > i)
         {
             boolean withoutChange = true;
@@ -108,8 +109,20 @@ public class EPK_new {
                                 }
                                 else {
                                     //wenn das Element davor ein Gate ist
-                                    Function fct = addFunctionBefore(i, j);
-                                    addEventBefore(j, fct);
+                                    Random rnd = new Random();
+                                    int rndAmountElements = rnd.nextInt(getParams().getMaxElements()- parameters.getMinElements())+parameters.getMinElements();
+
+                                    for(int l = 0; rndAmountElements > l; l++){
+                                        if(rnd.nextInt()%2==0){
+                                            Function fct = new Function("Function Text");
+                                            addElementBeforeStart(fct,i,j);
+                                        }
+                                        else{
+                                            Event evt = new Event("Event Text");
+                                            addElementBeforeStart(evt,i,j);
+                                        }
+                                    }
+
                                 }
                                 withoutChange = false;
                             }
@@ -129,6 +142,7 @@ public class EPK_new {
 
     public void checkElementsAfter(){
         int i = 0;
+        Parameters parameters = getParams();
         while(list.size() > i)
         {
             boolean withoutChange = true;
@@ -144,9 +158,22 @@ public class EPK_new {
                             System.out.println();
                             //wenn danach ein Gate ist, werden Elemente hinzugefügt
                             if (((Kante) list.get(j)).getRefStart() instanceof Gate) {
-                                //wenn das Element davor ein Gate ist
-                                Function fct = addFunctionAfter(i, j);
-                                addEventAfter(j, fct);
+                                Random rnd = new Random();
+                                int rndAmountElements = rnd.nextInt(getParams().getMaxElements()- parameters.getMinElements())+parameters.getMinElements();
+
+                                for(int l = 0; rndAmountElements > l; l++){
+                                    if(rnd.nextInt()%2==0){
+                                        Function fct = new Function("Function Text");
+                                        addElementBeforeEnd(fct,i,j);
+                                    }
+                                    else{
+                                        Event evt = new Event("Event Text");
+                                        addElementBeforeEnd(evt,i,j);
+                                    }
+                                }
+
+//                                Function fct = addFunctionAfter(i, j);
+//                                addEventAfter(j, fct);
                                 withoutChange = false;
                                 }
                         }
@@ -162,6 +189,8 @@ public class EPK_new {
         }
         System.out.println();
     }
+
+
 
     public Event addEventBefore(int kantenIndex, Function fct)
     {
@@ -180,16 +209,27 @@ public class EPK_new {
         add2list(fct, kante, list);
         return fct;
     }
-
-    public Event addEventAfter(int kantenIndex, Function fct)
+    public Object addElementBeforeStart(Object obj, int elementIndex, int kantenIndex)
     {
-        Event evt = new Event(0, 0, "Event Text");
-        Kante kante = new ForwardKante(evt, fct);
-        ((Kante) list.get(kantenIndex)).setRefEnd(evt);
-        add2list(evt, kante, list);
-        return evt;
+        //Kante zwischen neuer Funktion und alten Endelement
+        Kante kante = new ForwardKante(obj, ((RhombusOrLoop) list.get(elementIndex)).getRefStart());
+        //vorhandene Kante anpassen an neues Startelement fct
+        ((Kante) list.get(kantenIndex)).setRefEnd(obj);
+        add2list(obj, kante, list);
+        return obj;
     }
 
+
+    public Object addElementBeforeEnd(Object obj, int elementIndex, int kantenIndex)
+    {
+        //Kante zwischen neuer Funktion und alten Endelement
+        Kante kante = new ForwardKante(obj, ((RhombusOrLoop) list.get(elementIndex)).getRefEnd());
+        //vorhandene Kante anpassen an neues Startelement fct
+        ((Kante) list.get(kantenIndex)).setRefEnd(obj);
+        add2list(obj, kante, list);
+
+        return obj;
+    }
     public Function addFunctionAfter(int elementIndex, int kantenIndex)
     {
         Function fct = new Function(0, 0, "Function Text");
@@ -200,6 +240,16 @@ public class EPK_new {
         add2list(fct, kante, list);
 
         return fct;
+    }
+
+
+    public Event addEventAfter(int kantenIndex, Function fct)
+    {
+        Event evt = new Event(0, 0, "Event Text");
+        Kante kante = new ForwardKante(evt, fct);
+        ((Kante) list.get(kantenIndex)).setRefEnd(evt);
+        add2list(evt, kante, list);
+        return evt;
     }
 
     public Integer rndKante()
@@ -236,11 +286,11 @@ public class EPK_new {
         this.kantenList = kantenList;
     }
 
-    public Object getParams() {
+    public Parameters getParams() {
         return params;
     }
 
-    public void setParams(Object params) {
+    public void setParams(Parameters params) {
         this.params = params;
     }
 }
