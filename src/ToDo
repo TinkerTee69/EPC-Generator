@@ -1,6 +1,9 @@
 EPK_new:
     - Add methoden überarbeiten (Verbindung starten ohne Vorelement)
     - parameters Min/ Max Elemente einfügen
+    - Add min max: erste Element wird richtig eingefügt danach wird dieses nur überschrieben und nicht weitere davor angefügt
+    - OR Verzweigung eine Forward Kante auf nach XOR
+    - WithoutChange Flag (Selbstüberprüfung) anpassen
 
 durch liste rhomebn laufen - je nach rhombusart wird vor öffnenden Gate Event/Funktion
 je nach den Regeln

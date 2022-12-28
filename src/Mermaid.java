@@ -11,7 +11,7 @@ public class Mermaid {
         {
             if(list.get(i) instanceof Event)
             {
-                System.out.println(((Event) list.get(i)).getId() +  "[label=\"" + ((Event) list.get(i)).getEventText() + "\", shape = haxagon];");
+                System.out.println(((Event) list.get(i)).getId() +  "[label=\"" + ((Event) list.get(i)).getEventText() + "\", shape = hexagon];");
             }
             else if (list.get(i) instanceof Kante) {
                 id = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefStart());
