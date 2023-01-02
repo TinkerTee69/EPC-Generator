@@ -1,9 +1,29 @@
+Fragen:
+    - Priorität: erst EPK dann text, Text (ChatGPT) oder EPK Erstellung (Mehr Abzweigungen, Parameters...)
+    - Loop: 2.OR Verzweigung nach XOR
+
+    Wunsch: Traversierungsalgorithmus: Syntaktische koorrektheit überprüfen
+
+Allgemein: Bereitstellen Code
+    - Folien basteln
+
+    Kriterien? Dauer 5min?
+    online? Vorort
+    Weg + Probleme, Ergebnisse, 5-7 Folien
+
+    Algorithmus in Pseudocode
 EPK_new:
+    - CheckBeforeAndAfterGate
     - Add methoden überarbeiten (Verbindung starten ohne Vorelement)
-    - parameters Min/ Max Elemente einfügen
-    - Add min max: erste Element wird richtig eingefügt danach wird dieses nur überschrieben und nicht weitere davor angefügt
-    - OR Verzweigung eine Forward Kante auf nach XOR
-    - WithoutChange Flag (Selbstüberprüfung) anpassen
+    - Überprüfen ob gleiche Elemente vor und nach Gate stehen
+    - CheckXOOR: werden bei mehreren (Event)Eingängen auch alle Events durch Funktionen ersetzt?
+
+ChatGPT: Was funktioniert was nicht (und warum)?
+
+Muster:Könnte man aus den Mustern den Graphen durchlaufen und dahingehend den Text erstellen
+
+
+
 
 durch liste rhomebn laufen - je nach rhombusart wird vor öffnenden Gate Event/Funktion
 je nach den Regeln

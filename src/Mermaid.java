@@ -19,7 +19,7 @@ public class Mermaid {
                 System.out.println(id + " -> " + endId + "[ label = \"" + ((Kante) list.get(i)).getKantenID() + "\" ]");
             }
             else if (list.get(i) instanceof Function) {
-                System.out.println(((Function) list.get(i)).getId() + "[label=\"" + ((Function) list.get(i)).getFunctionText() + "\", style=rounded];");
+                System.out.println(((Function) list.get(i)).getId() + "[label=\"" + ((Function) list.get(i)).getFunctionText() + "\", shape=rectangle, style=rounded];");
             }
             else {
                 id = ((RhombusOrLoop) list.get(i)).getId((Gate) ((RhombusOrLoop) list.get(i)).getRefStart());
