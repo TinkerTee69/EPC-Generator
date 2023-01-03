@@ -8,7 +8,7 @@ Team, Kollegen, Vorgesetzter, Support, Paten
 Woche 6
 Dienstreiseantrag
 Weihnachtsfeier (fachlicher Teil: Sicherheitslücken der Bundeswehr finden)
-
+Aufsetzen Testumgebung GSB (CentOS...)
 ----------------------------------------------------------------------------------------------------
 
 Woche 5:
