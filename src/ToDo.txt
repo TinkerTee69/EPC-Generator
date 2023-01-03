@@ -3,6 +3,8 @@ Fragen:
     - Loop: 2.OR Verzweigung nach XOR
 
     Wunsch: Traversierungsalgorithmus: Syntaktische koorrektheit überprüfen
+        - Flags obs passt
+        100 häugsten Paare von Substantiven im Nominativ und Verben in Infinitiv Verb im Partizip 2
 
 Allgemein: Bereitstellen Code
     - Folien basteln
@@ -13,10 +15,7 @@ Allgemein: Bereitstellen Code
 
     Algorithmus in Pseudocode
 EPK_new:
-    - CheckBeforeAndAfterGate
-    - Add methoden überarbeiten (Verbindung starten ohne Vorelement)
-    - Überprüfen ob gleiche Elemente vor und nach Gate stehen
-    - CheckXOOR: werden bei mehreren (Event)Eingängen auch alle Events durch Funktionen ersetzt?
+    - Keine Events vor AND
 
 ChatGPT: Was funktioniert was nicht (und warum)?
 

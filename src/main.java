@@ -5,8 +5,11 @@ public class main {
         //Parameters parameters = new Parameters();
         EPK_new epk_new = new EPK_new(parameters);
 
+        insertText insertText = new insertText(epk_new);
+
         Mermaid mermaid = new Mermaid();
         mermaid.generateMermaid(epk_new);
+
 
     }
 }

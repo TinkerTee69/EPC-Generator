@@ -73,7 +73,7 @@ public class EPK_new {
     public void checkElements () {
         checkElementsBefore();
         checkElementsAfter();
-        //checkXOOR();
+        checkXOOR();
         checkBeforeAndAfterGate();
     }
 
@@ -125,13 +125,13 @@ public class EPK_new {
                                     Object oldObject = null;
                                     for(int l = 0; rndAmountElements > l; l++){
                                         if(l%2==0){
-                                            Function fct = new Function("Function Text");
+                                            Function fct = new Function("Function Text" + l);
                                             addElementBeforeStart(fct, i, j, firstAdd, oldObject);
                                             oldObject = fct;
 
                                         }
                                         else{
-                                            Event evt = new Event("Event Text");
+                                            Event evt = new Event("Event Text" +l);
                                             addElementBeforeStart(evt,i,j, firstAdd, oldObject);
                                             oldObject = evt;
                                         }
@@ -186,13 +186,13 @@ public class EPK_new {
                                 Object oldObject = null;
                                 for(int l = 0; rndAmountElements > l; l++){
                                     if(l%2==0){
-                                        Function fct = new Function("Function Text");
+                                        Function fct = new Function("Function Text"+l);
                                         addElementBeforeEnd(fct, i, j, firstAdd, oldObject);
                                         oldObject = fct;
 
                                     }
                                     else{
-                                        Event evt = new Event("Event Text");
+                                        Event evt = new Event("Event Text"+l);
                                         addElementBeforeEnd(evt,i,j, firstAdd, oldObject);
                                         oldObject = evt;
                                     }
@@ -303,9 +303,12 @@ public class EPK_new {
     public void checkBeforeAndAfterGate(){
         int i = 0;
         boolean maxElementsFlag = false;
+        boolean withoutChange = false;
+        int startFlag = 0;
         Object obj = new Object();
         int listSize = list.size();
         while(i < listSize){
+            withoutChange = true;
             // Wenn in der Kante als Endreferenz ein Gate ist, wird die Kante gesucht, bei der das Gate die Startrefernz ist
             if(list.get(i) instanceof ForwardKante
                     && ((ForwardKante) list.get(i)).getRefEnd() instanceof Gate){
@@ -318,7 +321,7 @@ public class EPK_new {
                             && ((ForwardKante) list.get(j)).getRefEnd().getClass().equals(((ForwardKante) list.get(i)).getRefStart().getClass())){
                         //Überprüfung ob der Parameter für maximale Elemente erreicht ist
                         //Wenn nicht, wird ein Element hinzugefügt
-                        if(countElementsBetweenGates(i) >= params.getMaxElements()){
+                        if(countElementsBetweenGates(j) >= params.getMaxElements()){
                             maxElementsFlag = true;
                         }
                         //((ForwardKante) list.get(j)).getRefStart().getClass().equals(((ForwardKante) list.get(i)).getRefStart())){
@@ -327,28 +330,39 @@ public class EPK_new {
                         if(true){
                             if(maxElementsFlag){
                                 //Löschen des Elements for dem Gate
-                                //Suchen der vorherigen Kante um diese mit dem Gate zu verbinden und die alte Kante & Element zu löschen
+                                //Suchen der nachfolgenden Kante um diese mit dem Gate zu verbinden und die alte Kante & Element zu löschen
                                 for(int k = 0; k < listSize; k++)
                                 {
-                                    if(((ForwardKante) list.get(i)).getRefStart().equals(list.get(k))){
-                                        ((ForwardKante) list.get(k)).setRefEnd(((ForwardKante) list.get(i)).getRefStart());
-                                        list.remove(((ForwardKante) list.get(i)).getRefStart());
-                                        kantenList.remove(((ForwardKante) list.get(i)));
+                                    if(((ForwardKante) list.get(j)).getRefEnd().equals(((ForwardKante)list.get(k)).getRefStart())){
+                                        ((ForwardKante) list.get(k)).setRefStart(((ForwardKante) list.get(j)).getRefStart());
+                                        list.remove(((ForwardKante) list.get(j)).getRefStart());
+                                        kantenList.remove(((ForwardKante) list.get(j)));
+                                        break;
                                     }
                                 }
-
+                                withoutChange = false;
                             }
                             //Wenn jedoch noch Elemente hinzugefügt werden dürfen, wird dies getan
                             else {
+                                //startFlag: bei 1 muss nach dem Start Rhombus/Loop das Element angehangen werden
+                                //bei 2 nach dem Ende des Rhombus/Loops
+                                startFlag = 0;
                                 for (int l = 0; l < listSize; l++) {
-                                    if(list.get(l) instanceof RhombusOrLoop
-                                            //Herausfinden der ElementID des Rhombus/Loops
-                                            && (((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefStart()))){
-                                            //|| ((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefEnd()))){
-                                        if (((ForwardKante) list.get(i)).getRefStart() instanceof Event) {
-                                            addElementAfter(new Function("!!!!FUNCTION!"), l, j);
-                                        } else {
-                                            addElementAfter(new Event("!!!!EVENT!"), l, j);
+                                    if(list.get(l) instanceof RhombusOrLoop ){
+                                        if((((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefStart()))){
+                                            startFlag = 1;
+                                        }
+                                        else if(((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefEnd())) {
+                                            startFlag = 2;
+                                        }
+                                        if(startFlag != 0) {
+                                            if (((ForwardKante) list.get(i)).getRefStart() instanceof Event) {
+                                                addElementAfter(new Function("!!!!FUNCTION!"), l, j, startFlag);
+                                            } else {
+                                                addElementAfter(new Event("!!!!EVENT!"), l, j, startFlag);
+                                            }
+                                            withoutChange = false;
+                                            break;
                                         }
                                     }
 
@@ -359,6 +373,10 @@ public class EPK_new {
                 }
             }
             i++;
+            if(i==listSize && !withoutChange)
+            {
+                i = 0;
+            }
         }
     }
 
@@ -404,9 +422,14 @@ public class EPK_new {
         return evt;
     }
 
-    public void addElementAfter(Object obj, int elementIndex, int kantenIndex){
-        Kante kante = new ForwardKante(((RhombusOrLoop) list.get(elementIndex)).getRefEnd(), obj);
-
+    public void addElementAfter(Object obj, int elementIndex, int kantenIndex, int startFlag){
+        Kante kante;
+        if(startFlag == 1) {
+             kante = new ForwardKante(((RhombusOrLoop) list.get(elementIndex)).getRefStart(), obj);
+        }
+        else {
+            kante = new ForwardKante(((RhombusOrLoop) list.get(elementIndex)).getRefEnd(), obj);
+        }
         ((Kante) list.get(kantenIndex)).setRefStart(obj);
         add2list(obj, kante, list);
     }
