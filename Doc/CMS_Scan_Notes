@@ -1,0 +1,8 @@
+Eingabe: FQDNs
+Ausgabe: Anzahl CMS Systeme, Art, Version (untergeordnet)
+
+Auswertung Art via Tag & Fingerprinting (welches Javascript - Hash dadrüber laufen lassen und vergleichen zur Versionsermittlung),
+& Header & Icons (Favicons, gemittelter Haswhert), Websiten / Unterverzeichnisse (wget?)
+Evtl. KI?
+
+Ausgabeformat: JSON

@@ -1,6 +1,7 @@
-public class OR extends AND{
+public class OR extends Gate{
+    public OR(){super();}
 
-    public OR(Integer position) {
-        super(position);
+    public Integer getID(){
+        return super.getID();
     }
 }

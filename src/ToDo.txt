@@ -1,0 +1,40 @@
+Fragen:
+    - Priorität: erst EPK dann text, Text (ChatGPT) oder EPK Erstellung (Mehr Abzweigungen, Parameters...)
+    - Loop: 2.OR Verzweigung nach XOR
+
+    Wunsch: Traversierungsalgorithmus: Syntaktische koorrektheit überprüfen
+        - Flags obs passt
+        100 häugsten Paare von Substantiven im Nominativ und Verben in Infinitiv Verb im Partizip 2
+
+Allgemein: Bereitstellen Code
+    - Folien basteln
+
+    Kriterien? Dauer 5min?
+    online? Vorort
+    Weg + Probleme, Ergebnisse, 5-7 Folien
+
+    Algorithmus in Pseudocode
+EPK_new:
+    - Keine Events vor AND
+
+ChatGPT: Was funktioniert was nicht (und warum)?
+
+Muster:Könnte man aus den Mustern den Graphen durchlaufen und dahingehend den Text erstellen
+
+
+
+
+durch liste rhomebn laufen - je nach rhombusart wird vor öffnenden Gate Event/Funktion
+je nach den Regeln
+
+bei Hinzufügen auf Regeln achten und ob schon eine Funktion
+
+danach Parameter rein
+
+zählen: gerichteter Graph Pfade zwischen den Gates (Event und Functionen)| Events / Funktionen zwischen Konnektoren zählen, wenn zuwenig dann Funktionen / Events hinzufügen( Dann eventuell letzte Kante löschen (siehe Bild)
+
+ChatGPT - Gib mir eine Liste von passenden Kombinatrionen aus Substantiven im Nominativ und Verben im inifinitv (Aufrag annehmen)
++ Liste mit Substantiveen und Verben (diesmal im partizip 2)
+
+immer aus der Liste was rausnehmen, nichts doppelt
+Liste muss langgenug sein

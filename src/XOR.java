@@ -1,5 +1,10 @@
-public class XOR extends AND{
-    public XOR(Integer position) {
-        super(position);
+public class XOR extends Gate{
+    public XOR() {
+        super();
     }
+
+    public Integer getID(){
+        return super.getID();
+    }
+
 }

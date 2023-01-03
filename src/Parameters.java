@@ -1,69 +1,85 @@
 import java.util.*;
 public class Parameters {
+    private Integer loops;
+    private Integer rhomben;
+    private Integer minElements;
+    private Integer maxElements;
 
-    private Integer gates;
-    private Integer events;
-    private Integer functions;
-
-    public void setGates(GeneratorEPK generate_epk) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Choose amount of gates: ");
-        this.gates = Integer.parseInt(sc.nextLine());
-        generate_epk.setAmountGates(this.gates);
+    public Parameters() {
+        do {
+            setLoops();
+            setRhomben();
+        }while(rhomben+loops<1);
+        setMinElements();
+        setMaxElements();
+    }
+    public Parameters(int i) {
+        setLoops(5);
+        setMaxElements(4);
+        setMinElements(2);
+        setRhomben(2);
     }
 
 
-    public void setEvents(GeneratorEPK generate_epk) {
+    public void setLoops() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Choose amount of events: ");
-        this.events = Integer.parseInt(sc.nextLine());
-        generate_epk.setAmountEvents(this.events);
+        System.out.println("Choose amount of Loops: ");
+        this.loops = Integer.parseInt(sc.nextLine());
     }
 
 
-    public void setFunctions(GeneratorEPK generate_epk) {
+    public void setRhomben() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Choose amount of Functions: ");
-        this.functions = Integer.parseInt(sc.nextLine());
-        generate_epk.setAmountFunctions(this.functions);
+        System.out.println("Choose amount of Rhomben: ");
+        this.rhomben = Integer.parseInt(sc.nextLine());
+    }
+
+    public void setMinElements(){
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("Choose minimum of Elements between gates: ");
+            this.minElements = Integer.parseInt(sc.nextLine());
+        }while(2 > minElements);
+    }
+
+    public void setMaxElements(){
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("Choose maximum of Elements between gates: ");
+            this.maxElements = Integer.parseInt(sc.nextLine());
+        }while(maxElements < getMinElements());
+    }
+
+    public Integer getLoops() {
+        return loops;
+    }
+
+
+    public Integer getRhomben() {
+        return rhomben;
+    }
+
+    public Integer getMinElements() {
+        return minElements;
+    }
+
+    public Integer getMaxElements() {
+        return maxElements;
+    }
+
+    public void setLoops(Integer loops) {
+        this.loops = loops;
+    }
+
+    public void setRhomben(Integer rhomben) {
+        this.rhomben = rhomben;
+    }
+
+    public void setMinElements(Integer minElements) {
+        this.minElements = minElements;
+    }
+
+    public void setMaxElements(Integer maxElements) {
+        this.maxElements = maxElements;
     }
 }
-
-
-
-
-    //    private Integer difficulty;
-//    private Integer length;
-//    private Integer knotGrade;
-
-//    public Integer getKnotGrade() {
-//        return knotGrade;
-//    }
-//
-//    public void setKnotGrade() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Choose knot grade from 1 [linear] to  3 [complex]");
-//        this.knotGrade = Integer.parseInt(sc.nextLine());
-//    }
-//
-//    public Integer getDifficulty() {
-//        return difficulty;
-//    }
-//
-//    public void setDifficulty() {
-//
-//        System.out.println("Choose difficulty from 1 [easy] to 3 [hard]");
-//        Scanner sc = new Scanner(System.in);
-//        this.difficulty = Integer.parseInt(sc.nextLine());
-//    }
-//
-//
-//    public Integer getLength() {
-//        return length;
-//    }
-//
-//    public void setLength() {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Choose process length from 1 [short] to 3 [long]");
-//        this.length = Integer.parseInt(sc.nextLine());
-
