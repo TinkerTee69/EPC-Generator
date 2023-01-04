@@ -10,17 +10,17 @@ public class EPK_new {
 
     public EPK_new(Parameters parameters) {
         setParams(parameters);
-        Integer amountLoops = parameters.getLoops();
-        Integer amountRhombus = parameters.getRhomben();
+        params = getParams();
+        Integer amountLoops = params.getLoops();
+        Integer amountRhombus = params.getRhomben();
         int i = 0;
         int i_rhombus = amountRhombus;
         int i_loop = amountLoops;
         int kantenIndex;
-        Integer id = 0;
 
         //Erzeugung zweier Startelemente
-        Event evt = new Event(0,0,"Start Event");
-        Event evt2 = new Event(0, 0, "Last Event");
+        Event evt = new Event("Start Event");
+        Event evt2 = new Event("Prozess beendet");
 
         //Erzeugung Startkante
         ForwardKante kante = new ForwardKante(evt, evt2);
@@ -37,57 +37,55 @@ public class EPK_new {
 
             if(i_rhombus > 0)
             {
-                Random rndGate = new Random();
+                int rndGate = new Random().nextInt(3);
                 Rhombus rhombus;
-                if(rndGate.nextInt(3)==0)
+                //zufällige Auswahl der Gateart des Rhombuses
+                if(rndGate==0)
                 {
-                    rhombus = new AndRhombus(kantenIndex,list, kantenList, new AND(), new AND(), parameters);
+                    rhombus = new AndRhombus(kantenIndex,list, kantenList, new AND(), new AND());
                 }
-                else if(rndGate.nextInt(3)==1)
+                else if(rndGate==1)
                 {
-                    rhombus = new OrRhombus(kantenIndex, list, kantenList, new OR(), new OR(), parameters);
+                    rhombus = new OrRhombus(kantenIndex, list, kantenList, new OR(), new OR());
                 }
                 else
                 {
-                    rhombus = new XorRhombus(kantenIndex, list, kantenList, new XOR(), new XOR(), parameters);
+                    rhombus = new XorRhombus(kantenIndex, list, kantenList, new XOR(), new XOR());
                 }
                 list.add(rhombus);
-                id++;
+
                 i_rhombus--;
             }
             else if(i_loop > 0)
             {
-                Loop loop = new Loop(kantenIndex,list, kantenList, new OR(), new XOR(), parameters);
+                Loop loop = new Loop(kantenIndex,list, kantenList, new OR(), new XOR());
                 list.add(loop);
                 i_loop--;
             }
             i++;
         }
-        for(int o = 0; o < 100; o++)
-        {
-         //   checkElements();
-        }
         checkElements();
     }
 
     public void checkElements () {
-        checkElementsBefore();
-        checkElementsAfter();
-        checkXOOR();
-        checkBeforeAndAfterGate();
+        //Vertrauen ist gut, paranoide alle-guten-Dinge-sind-3 Überprüfungen sind besser
+        for(int i = 0; i <3; i++)
+            checkElementsBefore();
+            checkElementsAfter();
+            checkXOOR();
+            checkBeforeAndAfterGate();
     }
 
+    //Elemente vor dem Startgate eines Rhombuses/Loops überprüfen und ggf. einfügen
     public void checkElementsBefore(){
         int i = 0;
-//        Parameters parameters = getParams();
-        while(list.size() > i)
-        {
+        while(list.size() > i){
+            //withoutChange ist das Flag um zu überprüfen, ob Änderungen vorgenommen wurden,
+            // wenn dies der Fall ist, soll die Überprüfung so lange durchlaufen, bis syntaktische Korrektheit herrscht
             boolean withoutChange = true;
-            //if(list.get(i) instanceof XOORhombus || list.get(i) instanceof  Loop)
-            if(list.get(i) instanceof RhombusOrLoop)
-            {
-                //Überprüfen der Elemente vor dem XOOR Rhombus/Loop
-                //Überprüfen der Kante vor dem Element
+            if(list.get(i) instanceof RhombusOrLoop){
+                //Überprüfen der Elemente vor dem Rhombus/Loop
+                // & Überprüfen der Kante vor dem Element
                 for(int j = 0; list.size() > j; j++) {
                     if (list.get(j) instanceof ForwardKante) {
                         //Wenn eine Kante das Element als Ende referenziert, wird das Startreferenzelement angeschaut
@@ -96,58 +94,67 @@ public class EPK_new {
                             if (((ForwardKante) list.get(j)).getRefStart() instanceof Gate || ((ForwardKante) list.get(j)).getRefStart() instanceof Event) {
                                 //wenn davor bereits Event und Function vorhanden sind, mache nichts, ansonsten addFunction
                                 if(((ForwardKante) list.get(j)).getRefStart() instanceof Event) {
-                                    boolean checkFunctionBeforEvent = false;
-                                    for(int k = 0; list.size() > k; k++) {
-                                        if(list.get(k) instanceof ForwardKante && ((ForwardKante) list.get(k)).getRefEnd().equals(((ForwardKante) list.get(j)).getRefStart())){
-                                            if(((ForwardKante) list.get(k)).getRefStart() instanceof Function) {
-                                                checkFunctionBeforEvent = true;
-                                                //break;
-                                            }
-                                        }
-                                    }
-                                    if (!checkFunctionBeforEvent) {
-                                        addFunctionBefore(i, j);
-                                        //break;
-                                    }
+//                                    boolean checkFunctionBeforEvent = false;
+//                                    for(int k = 0; list.size() > k; k++) {
+//                                        if(list.get(k) instanceof ForwardKante && ((ForwardKante) list.get(k)).getRefEnd().equals(((ForwardKante) list.get(j)).getRefStart())){
+//                                            if(((ForwardKante) list.get(k)).getRefStart() instanceof Function) {
+//                                                checkFunctionBeforEvent = true;
+//                                                break;
+//                                            }
+//                                        }
+//                                    }
+//                                    if (!checkFunctionBeforEvent) {
+//                                        addFunctionBefore(i, j);
+//                                        break;
+//                                    }
                                 }
                                 else {
-                                    //wenn das Element davor ein Gate ist
+                                    //wenn das Element davor ein Gate ist, füge zufällig viele Elemente hinzu,
+                                    // innerhalb der min/max Parameter
                                     Random rnd = new Random();
                                     int rndAmountElements;
-                                    if(params.getMaxElements() - params.getMinElements() == 0)
-                                    {
+                                    int rndStartElement = rnd.nextInt(2);
+
+                                    //Wenn min == max Parameter ist, wird einfach min Parameter genommen
+                                    if(params.getMaxElements() - params.getMinElements() == 0){
                                         rndAmountElements = params.getMinElements();
                                     }
+                                    //Ansonsten zufällig viele innerhalb der Parameter
                                     else {
                                         rndAmountElements = rnd.nextInt(params.getMaxElements()- params.getMinElements())+params.getMinElements();
                                     }
+
+                                    //Wenn es sich um die erste Einfügung handelt, muss firstAdd true sein,
+                                    // damit beim ersten Einsetzen eine Kante zwischen Gate und Element erstellt wird
                                     boolean firstAdd = true;
                                     Object oldObject = null;
+
+
+                                    //zufällige Auswahl mit welchem Elementtypen gestartet wird, danach im Wechsel
                                     for(int l = 0; rndAmountElements > l; l++){
-                                        if(l%2==0){
-                                            Function fct = new Function("Function Text" + l);
+                                        if((l+rndStartElement)%2==0){
+                                            Function fct = new Function();
                                             addElementBeforeStart(fct, i, j, firstAdd, oldObject);
                                             oldObject = fct;
-
                                         }
                                         else{
-                                            Event evt = new Event("Event Text" +l);
+                                            Event evt = new Event();
                                             addElementBeforeStart(evt,i,j, firstAdd, oldObject);
                                             oldObject = evt;
                                         }
+
                                         firstAdd=false;
                                     }
-
                                 }
                                 withoutChange = false;
                             }
-                            //break;
+                            break;
                         }
                     }
                 }
             }
             i++;
-            if(!withoutChange)
+            if(i==list.size() && !withoutChange)
             {
                 i = 0;
             }
@@ -155,13 +162,13 @@ public class EPK_new {
         System.out.println();
     }
 
+    //Überprüfung und ggf Einfügen von Elementen nach dem Startgate eines Rhombuses / Loops
     public void checkElementsAfter(){
         int i = 0;
         Parameters parameters = getParams();
         while(list.size() > i)
         {
             boolean withoutChange = true;
-            //if(list.get(i) instanceof XOORhombus || list.get(i) instanceof  Loop)
             if(list.get(i) instanceof RhombusOrLoop)
             {
                 //Überprüfen der Elemente vor dem XOOR Rhombus/Loop
@@ -184,8 +191,9 @@ public class EPK_new {
                                 }
                                 boolean firstAdd = true;
                                 Object oldObject = null;
+                                int rndStartElement = rnd.nextInt(2);
                                 for(int l = 0; rndAmountElements > l; l++){
-                                    if(l%2==0){
+                                    if((l+rndStartElement)%2==0){
                                         Function fct = new Function("Function Text"+l);
                                         addElementBeforeEnd(fct, i, j, firstAdd, oldObject);
                                         oldObject = fct;
@@ -198,13 +206,9 @@ public class EPK_new {
                                     }
                                     firstAdd=false;
                                 }
-
-//                                Function fct = addFunctionAfter(i, j);
-//                                addEventAfter(j, fct);
                                 withoutChange = false;
                                 }
                         }
-                            //break;
                     }
                 }
             }
@@ -220,22 +224,25 @@ public class EPK_new {
     }
 
 
+    //Überprüfung ob Events vor (X)OR Gates stehen, wenn ja Funktion dazwischen einfügen
     public void checkXOOR(){
         int i = 0;
         Parameters parameters = getParams();
         while(list.size() > i) {
             boolean withoutChange = true;
+            //Wenn die aktuelle ein (X)OR Gate als Ende referenziert und das vorherige Element ein Event ist
             if(list.get(i) instanceof ForwardKante
                     && (((ForwardKante) list.get(i)).getRefEnd() instanceof XOR
                         || ((ForwardKante) list.get(i)).getRefEnd() instanceof OR)
-                    && ((ForwardKante) list.get(i)).getRefStart() instanceof Event){
-                //Wenn max Parameter noch nicht ausgescöpft, wird eine Funktion hinzugefügt
+                    && ((ForwardKante) list.get(i)).getRefStart() instanceof Event
+            ){
+                //Wenn max Parameter noch nicht ausgescöpft, wird eine Funktion dazwischen eingefügt
                 if(countElementsBetweenGates(i) < params.getMaxElements()) {
                     Function fct = new Function(0,0,"fct Text");
-                    //addElementBeforeEnd(new Function(0,0,"fct Text"),);
                     Kante kante = new ForwardKante(fct,((ForwardKante) list.get(i)).getRefEnd());
                     ((ForwardKante) list.get(i)).setRefEnd(fct);
                     add2list(fct,kante,list);
+                    withoutChange = false;
                 }
                 //Ansonsten wird das Event gelöscht
                 else
@@ -250,6 +257,7 @@ public class EPK_new {
                                     list.remove(l);
                                 }
                             }
+                            withoutChange = false;
                             list.remove(i);
                             break;
                         }
@@ -297,23 +305,28 @@ public class EPK_new {
 
             }
             i++;
+            if(i == list.size() && !withoutChange){
+                i = 0;
+            }
         }
     }
 
+    //Überprüfung ob vor und nach einem Gate das gleiche Element ist, wenn ja, dann wird das nachfolgende geändert
     public void checkBeforeAndAfterGate(){
-        int i = 0;
+        //Flag zur Identifizierung, ob der max Parameter ausgeschöpft ist
         boolean maxElementsFlag = false;
-        boolean withoutChange = false;
+        //Flag zur Identifizierung, ob hinter dem Start oder EndGate das Element verändert werden muss
         int startFlag = 0;
-        Object obj = new Object();
+        //Da die Liste list hier wächst kann list.size() nicht verwendet werden, ansonsten Endlosloop
         int listSize = list.size();
+        int i = 0;
         while(i < listSize){
-            withoutChange = true;
+            boolean withoutChange = true;
             // Wenn in der Kante als Endreferenz ein Gate ist, wird die Kante gesucht, bei der das Gate die Startrefernz ist
             if(list.get(i) instanceof ForwardKante
                     && ((ForwardKante) list.get(i)).getRefEnd() instanceof Gate){
+                //Suche der Kante mit dem Gate als Startreferenz
                 for(int j = 0; j < listSize; j++){
-                    //Suche der Kante mit dem Gate als Startreferenz
                     if(list.get(j) instanceof ForwardKante
                             //Überprüfung ob es sich um die Kante mit der Gate Refernz handelt
                             && ((ForwardKante) list.get(j)).getRefStart().equals(((ForwardKante) list.get(i)).getRefEnd())
@@ -324,48 +337,47 @@ public class EPK_new {
                         if(countElementsBetweenGates(j) >= params.getMaxElements()){
                             maxElementsFlag = true;
                         }
-                        //((ForwardKante) list.get(j)).getRefStart().getClass().equals(((ForwardKante) list.get(i)).getRefStart())){
 
-                        //Wenn diese Kante gefunden wurde, wird überprüft ob es sich um eine Event oder Function Dopplung handelt
-                        if(true){
-                            if(maxElementsFlag){
-                                //Löschen des Elements for dem Gate
-                                //Suchen der nachfolgenden Kante um diese mit dem Gate zu verbinden und die alte Kante & Element zu löschen
-                                for(int k = 0; k < listSize; k++)
-                                {
-                                    if(((ForwardKante) list.get(j)).getRefEnd().equals(((ForwardKante)list.get(k)).getRefStart())){
-                                        ((ForwardKante) list.get(k)).setRefStart(((ForwardKante) list.get(j)).getRefStart());
-                                        list.remove(((ForwardKante) list.get(j)).getRefStart());
-                                        kantenList.remove(((ForwardKante) list.get(j)));
+                        //Wenn diese Kante gefunden wurde, wird überprüft, ob es sich um eine Dopplung von Events oder Funktionen handelt
+                        //Wenn max Parameter erreicht -> Löschen
+                        if(maxElementsFlag){
+                            //Löschen des Elements for dem Gate
+                            //Suchen der nachfolgenden Kante um diese mit dem Gate zu verbinden und die alte Kante & Element zu löschen
+                            for(int k = 0; k < listSize; k++)
+                            {
+                                if(((ForwardKante) list.get(j)).getRefEnd().equals(((ForwardKante)list.get(k)).getRefStart())){
+                                    ((ForwardKante) list.get(k)).setRefStart(((ForwardKante) list.get(j)).getRefStart());
+                                    list.remove(((ForwardKante) list.get(j)).getRefStart());
+                                    kantenList.remove(((ForwardKante) list.get(j)));
+                                    break;
+                                }
+                            }
+                            withoutChange = false;
+                        }
+                        //Wenn jedoch noch Elemente hinzugefügt werden dürfen, wird dies getan
+                        else {
+                            //startFlag: bei 1 muss nach dem Start Rhombus/Loop das Element angehangen werden
+                            //bei 2 nach dem Ende des Rhombus/Loops
+                            startFlag = 0;
+                            for (int l = 0; l < listSize; l++) {
+                                if(list.get(l) instanceof RhombusOrLoop ){
+                                    if((((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefStart()))){
+                                        startFlag = 1;
+                                    }
+                                    else if(((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefEnd())) {
+                                        startFlag = 2;
+                                    }
+                                    if(startFlag != 0) {
+                                        //wenn es sich um eine Dopplung von Events handelt, wir eine Funktion eingefügt
+                                        if (((ForwardKante) list.get(i)).getRefStart() instanceof Event) {
+                                            addElementAfter(new Function(), l, j, startFlag);
+                                        // wenn es sich um eine Dopplung von Funktionen handelt, wir ein Event eingefügt
+                                        } else {
+                                            addElementAfter(new Event(), l, j, startFlag);
+                                        }
+                                        withoutChange = false;
                                         break;
                                     }
-                                }
-                                withoutChange = false;
-                            }
-                            //Wenn jedoch noch Elemente hinzugefügt werden dürfen, wird dies getan
-                            else {
-                                //startFlag: bei 1 muss nach dem Start Rhombus/Loop das Element angehangen werden
-                                //bei 2 nach dem Ende des Rhombus/Loops
-                                startFlag = 0;
-                                for (int l = 0; l < listSize; l++) {
-                                    if(list.get(l) instanceof RhombusOrLoop ){
-                                        if((((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefStart()))){
-                                            startFlag = 1;
-                                        }
-                                        else if(((ForwardKante) list.get(i)).getRefEnd().equals(((RhombusOrLoop) list.get(l)).getRefEnd())) {
-                                            startFlag = 2;
-                                        }
-                                        if(startFlag != 0) {
-                                            if (((ForwardKante) list.get(i)).getRefStart() instanceof Event) {
-                                                addElementAfter(new Function("!!!!FUNCTION!"), l, j, startFlag);
-                                            } else {
-                                                addElementAfter(new Event("!!!!EVENT!"), l, j, startFlag);
-                                            }
-                                            withoutChange = false;
-                                            break;
-                                        }
-                                    }
-
                                 }
                             }
                         }
@@ -373,13 +385,16 @@ public class EPK_new {
                 }
             }
             i++;
+            //Überprüfung ob etwas geändert wurde und daher das EPK nochmal überprüft werden muss
             if(i==listSize && !withoutChange)
             {
                 i = 0;
+                listSize = list.size();
             }
         }
     }
 
+    //Zählen von Elementen zwischen Gates zur Ermittlung, ob die min/max Parameter eingehalten werden
     public int countElementsBetweenGates(int kantenIndex){
         boolean gateFlag = false;
         int i = 0;
@@ -402,7 +417,7 @@ public class EPK_new {
                         break;
                     }
                     //Wenn kein Element mehr davor gefunden wird, beende die Suche
-                    else if(j == list.size()-1){
+                    else if(j == list.size()){
                         gateFlag = true;
                     }
                 }
@@ -444,6 +459,8 @@ public class EPK_new {
         add2list(fct, kante, list);
         return fct;
     }
+
+    //Methode zum Einfügen von Elementen nach Gates zur Verhinderung von Dopplungen vor und hinter einem Gate
     public Object addElementBeforeStart(Object obj, int elementIndex, int kantenIndex, boolean firstAdd, Object oldObject)
     {
         Kante kante;
@@ -454,13 +471,14 @@ public class EPK_new {
         else{
             kante = new ForwardKante(obj, oldObject);
         }
+
         //vorhandene Kante anpassen an neues Startelement obj
         ((Kante) list.get(kantenIndex)).setRefEnd(obj);
         add2list(obj, kante, list);
         return obj;
     }
 
-
+    //Einfügen von Elementen zwischen Start und Endgate
     public Object addElementBeforeEnd(Object obj, int elementIndex, int kantenIndex, boolean firstAdd, Object oldObject)
     {
         Kante kante;
@@ -477,18 +495,6 @@ public class EPK_new {
 
         return obj;
     }
-//    public Function addFunctionAfter(int kantenIndex)
-//    {
-//        Function fct = new Function(0, 0, "Function Text");
-//        //Kante zwischen neuer Funktion und alten Endelement
-//        Kante kante = new ForwardKante(fct, ((RhombusOrLoop) list.get(elementIndex)).getRefEnd());
-//        //vorhandene Kante anpassen an neues Startelement fct
-//        ((Kante) list.get(kantenIndex)).setRefEnd(fct);
-//        add2list(fct, kante, list);
-//
-//        return fct;
-//    }
-
 
     public Event addEventAfter(int kantenIndex, Function fct)
     {
@@ -499,6 +505,7 @@ public class EPK_new {
         return evt;
     }
 
+    //Auswahl einer zufälligen Kante zum Einfügen eines Rhombuses/Loops
     public Integer rndKante()
     {
         Random random = new Random();
@@ -509,6 +516,7 @@ public class EPK_new {
         return random.nextInt(kantenList.size())+1;
     }
 
+    //Methode zum aktualisieren der Listen
     public void add2list(Object obj, Kante kante, List<Object> list){
         list.add(obj);
         list.add(kante);
@@ -517,6 +525,8 @@ public class EPK_new {
         setKantenList(kantenList);
     }
 
+
+    /////////////////GETTER & SETTER //////////////////////
     public List<Object> getList() {
         return list;
     }

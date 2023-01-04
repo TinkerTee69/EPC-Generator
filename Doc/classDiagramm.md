@@ -1,6 +1,6 @@
 # Projektseminar
 
-```Mermaid
+```Edotor
 classDiagram
     class Task{
         int difficulty

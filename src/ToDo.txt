@@ -1,4 +1,17 @@
 Fragen:
+    - wie logisch müssen die Texte sein? Müssen diese einen Zusammenhang haben (und wenn ja, bis zu welchem Element [z.B. wenn Funktion vor Gate])?
+        --in Subprozessen ja
+    - Events vor ANDs kommen relativ wenig vor, ist das i.O.?
+        -- regelbasiert ändern
+
+lokalen Kontext zwischen Start und Endgate
+Bibliotheken andere verwenden, z.B.
+                                   https://www.nltk.org/
+                                   https://spacy.io/
+
+
+
+
     - Priorität: erst EPK dann text, Text (ChatGPT) oder EPK Erstellung (Mehr Abzweigungen, Parameters...)
     - Loop: 2.OR Verzweigung nach XOR
 

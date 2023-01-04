@@ -1,6 +1,7 @@
 public class Event extends EPK_Element{
     private Integer id;
     private String eventText;
+    private Integer position;
 
     public Event(Integer position, Integer level, String text) {
         super(position, level);
@@ -22,13 +23,19 @@ public class Event extends EPK_Element{
         this.id = id;
     }
 
-    public String getEventText() {
+    public String getText() {
         return eventText;
     }
 
-    public void setEventText(String eventText) {
+    public void setText(String eventText) {
         this.eventText = eventText;
     }
 
+    public Integer getPosition() {
+        return position;
+    }
 
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
 }

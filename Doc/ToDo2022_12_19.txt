@@ -1,4 +1,4 @@
-Mermaid ersetzen. EPK Anzeige  -> Graphwiz, Edotor
+Edotor ersetzen. EPK Anzeige  -> Graphwiz, Edotor
 
 durch liste rhomebn laufen - je nach rhombusart wird vor öffnenden Gate Event/Funktion 
 je nach den Regeln
