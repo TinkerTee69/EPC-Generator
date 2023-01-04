@@ -15,9 +15,9 @@ public class Parameters {
     }
     public Parameters(int i) {
         setLoops(2);
-        setMaxElements(3);
+        setMaxElements(5);
         setMinElements(2);
-        setRhomben(8);
+        setRhomben(3);
     }
 
 

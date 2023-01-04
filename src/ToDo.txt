@@ -1,3 +1,9 @@
+insertText:
+    - Ereignis hinter Gate muss mit vorherigen Substantiv gefüllt werden
+
+
+
+
 Fragen:
     - wie logisch müssen die Texte sein? Müssen diese einen Zusammenhang haben (und wenn ja, bis zu welchem Element [z.B. wenn Funktion vor Gate])?
         --in Subprozessen ja
