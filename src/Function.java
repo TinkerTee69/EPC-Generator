@@ -1,17 +1,12 @@
 public class Function extends EPK_Element{
 
     private Integer id;
-    private String functionText;
+    private String Text;
     private Integer position;
 
-    public Function(Integer position, Integer level, String functionText) {
-        super(position, level);
-        this.functionText = functionText;
-    }
-
-    public Function(String functionText){
+    public Function(String Text){
         super();
-        this.functionText = functionText;
+        this.Text = Text;
     }
 
     public Function()
@@ -28,11 +23,11 @@ public class Function extends EPK_Element{
     }
 
     public String getText() {
-        return functionText;
+        return Text;
     }
 
     public void setText(String functionText) {
-        this.functionText = functionText;
+        this.Text = functionText;
     }
 
     public Integer getPosition() {

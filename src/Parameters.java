@@ -14,10 +14,10 @@ public class Parameters {
         setMaxElements();
     }
     public Parameters(int i) {
-        setLoops(2);
-        setMaxElements(5);
-        setMinElements(2);
-        setRhomben(3);
+        setLoops(1);
+        setMaxElements(3);
+        setMinElements(1);
+        setRhomben(5);
     }
 
 

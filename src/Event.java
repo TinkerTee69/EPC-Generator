@@ -3,11 +3,6 @@ public class Event extends EPK_Element{
     private String eventText;
     private Integer position;
 
-    public Event(Integer position, Integer level, String text) {
-        super(position, level);
-        this.eventText = text;
-    }
-
     public Event(){super();}
 
     public Event(String eventText) {

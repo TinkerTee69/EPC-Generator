@@ -1,3 +1,11 @@
+Main: wenn 2 mal hintereinander ein Objekt erstellt wird, kommt es zu einem NullPointerException
+
+EPK:
+    -Anzahl Elemente fehlerhaft bei min == max Parameter
+    - Teilweise wird zuviel gelöscht und min Parameter wird unterschritten
+        -- evtl Lösung: Davor und hinter dem Gate hinzufügen
+    -Endlosloop bei ANDcheck
+
 insertText:
     - Ereignis hinter Gate muss mit vorherigen Substantiv gefüllt werden
 
@@ -33,7 +41,7 @@ Allgemein: Bereitstellen Code
     Weg + Probleme, Ergebnisse, 5-7 Folien
 
     Algorithmus in Pseudocode
-EPK_new:
+EPK:
     - Keine Events vor AND
 
 ChatGPT: Was funktioniert was nicht (und warum)?

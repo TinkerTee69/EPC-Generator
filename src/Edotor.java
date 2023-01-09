@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Edotor {
 
-    public void generateEdotor(EPK_new epk) {
+    public Edotor(insertText epk) {
         //Konfiguration für Ausgabe mit Umlauten
         //PrintWriter out = new PrintWriter(System.out, true);
         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
@@ -13,7 +13,7 @@ public class Edotor {
         Integer id, endId;
         List<Object> list = epk.getList();
 
-        System.out.println("digraph EPK_Edotor {rankdir=TD;\nsize=\"8,5\"");
+        System.out.println("\n\n\n\ndigraph EPK_Edotor {rankdir=TD;\nsize=\"8,5\"");
 
         //Schleife zum Durchlaufen der EPK Liste
         //je nach Klasse des Objects wird die Ausgabe angepasst
@@ -27,7 +27,7 @@ public class Edotor {
             else if (list.get(i) instanceof Kante) {
                 id = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefStart());
                 endId = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefEnd());
-                System.out.println(id + " -> " + endId + "[ label = \"" + ((Kante) list.get(i)).getKantenID() + "\" ]");
+                System.out.println(id + " -> " + endId + "[ label = \"" + /*((Kante) list.get(i)).getKantenID() + */"\" ]");
             }
             else if (list.get(i) instanceof Function) {
                 System.out.println(((Function) list.get(i)).getId() + "[label=\"" + ((Function) list.get(i)).getText() + "\", shape=rectangle, style=rounded];");
