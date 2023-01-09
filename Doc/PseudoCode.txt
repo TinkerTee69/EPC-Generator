@@ -1,0 +1,36 @@
+Start und Ende müssen ein Ereignis sein.
+-Füge ein Start- Endereignis hinzu, verbinde diese mit einer Kante und füge neue Elemente zwischen Start und Ende ein.
+-Dadurch ist der Start immer der Start und das Endereignis immer das letzte Element.
+
+Nach einem Event folgt eine Funktion, nach einem Event eine Funktion. Dazwischen dürfen sich Gates befinden.
+-Einfügen zwischen Gate, starte zufällig entweder mit einer Funktion oder Event, danach fülle abwechselnd auf.
+-Die Anzahl der Auffüllungen wird zufällig gewählt (im Intervall der min/max Parameter)
+-Überprüfung und ggf. Korrektur des gesamten EPKs nach Fertigstellung.
+--Vor und nach einem Gate werden die ELemente verglichen und ggf. eines dazwischen eingefügt oder gelöscht
+
+Vor (X)OR Gates dürfen keine Entscheidungselemente stattfinden.
+-Durchlaufen des EPKs, wenn vor X(OR) Gate ein Event ist, wird entweder eine Funktion zwischen Gate und Event eingefügt,
+- oder das Event wird gelöscht, je nachdem ob der Max Parameter schon erreicht wurde
+
+Operatoren beginnen und enden mit demselben Operator
+- Es werden Rhomben und Loops erstellt. Die Rhomben werden mit 2 Operatoren (gleicher Art) gefüllt, Loop mit OR -> XOR
+- Diese Rhomben werden in einer zufälligen Kante geladen, (Bild dazu machen) und neue Kanten werden erzeugt, in denen wiederum zufällig Rhomben und Loops eingefügt werden können
+
+
+
+Fragen: Funtionalität im März
+jeder 5min
+
+Fachfremde Leute werden da sein, also kurze Einleitung EPK was das ist
+Programmablaufplan! statt Pseudo
+code!
+(optional) Probleme
+mehr Bilder wenig Text
+
+Fortschrittsbalken
+
+Projektbericht ein gemeinsamer oder einzeln
+Projbericht: Das ganze erarbeitete Wissen soll übergeben werden, und neue sollen in k+rzester Zeit auf den Stand kommen
+was geht, was nicht, Probleme/Hindernisse
+Was wurde gelernt
+Auf den Code eingehen
