@@ -5,19 +5,21 @@ public class Parameters {
     private Integer minElements;
     private Integer maxElements;
 
-    public Parameters() {
-        do {
-            setLoops();
-            setRhomben();
-        }while(rhomben+loops<1);
-        setMinElements();
-        setMaxElements();
-    }
-    public Parameters(int i) {
-        setLoops(1);
-        setMaxElements(3);
-        setMinElements(1);
-        setRhomben(5);
+    public Parameters(boolean testModus) {
+        if(testModus) {
+            setLoops(1);
+            setMaxElements(3);
+            setMinElements(1);
+            setRhomben(5);
+        }
+        else{
+            do {
+                setLoops();
+                setRhomben();
+            }while(rhomben+loops<1);
+            setMinElements();
+            setMaxElements();
+        }
     }
 
 

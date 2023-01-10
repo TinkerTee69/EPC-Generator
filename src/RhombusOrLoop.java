@@ -19,8 +19,7 @@ public class RhombusOrLoop {
                     // von der vorherigen Kante das neue Zielelement ändern (zu dem neu zu erstellenden Rhombus/Loop)
                     ((Kante) list.get(i)).setRefEnd(refStart);
 
-                    //aktuelles Element befüllen
-                    this.setKantenList(kantenList);
+                    //aktuelles Element mit den Referenzen befüllen
                     this.setRefStart(refStart);
                     this.setRefEnd(refEnd);
 
@@ -35,18 +34,8 @@ public class RhombusOrLoop {
         }
     }
 
-    private List<Kante> kantenList;
     private Object refStart;
     private Object refEnd;
-
-
-    public List<Kante> getKantenList() {
-        return kantenList;
-    }
-
-    public void setKantenList(List<Kante> kantenList) {
-        this.kantenList = kantenList;
-    }
 
     public Object getRefStart() {
         return refStart;

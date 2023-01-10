@@ -1,5 +1,8 @@
 Main: wenn 2 mal hintereinander ein Objekt erstellt wird, kommt es zu einem NullPointerException
 
+Wenn vor dem EndLoop / (X)OR Rhombus und dahinter eine Funktion ist, muss die Funktion nach dem Gate zu einem Event verändert werden
+
+nur vor (X)OR Startverzweigung kein Event, vor (X)OR Ende ist es okay
 EPK:
     -Anzahl Elemente fehlerhaft bei min == max Parameter
     - Teilweise wird zuviel gelöscht und min Parameter wird unterschritten
