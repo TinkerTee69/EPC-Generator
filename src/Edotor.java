@@ -24,13 +24,13 @@ public class Edotor {
             {
                 System.out.println(((Event) list.get(i)).getId() +  "[label=\"" + ((Event) list.get(i)).getText() + "\", shape = hexagon];");
             }
+            else if (list.get(i) instanceof Function) {
+                System.out.println(((Function) list.get(i)).getId() + "[label=\"" + ((Function) list.get(i)).getText() + "\", shape=rectangle, style=rounded];");
+            }
             else if (list.get(i) instanceof Kante) {
                 id = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefStart());
                 endId = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefEnd());
                 System.out.println(id + " -> " + endId + "[ label = \"" + /*((Kante) list.get(i)).getKantenID() + */"\" ]");
-            }
-            else if (list.get(i) instanceof Function) {
-                System.out.println(((Function) list.get(i)).getId() + "[label=\"" + ((Function) list.get(i)).getText() + "\", shape=rectangle, style=rounded];");
             }
             else {
                 id = ((RhombusOrLoop) list.get(i)).getId((Gate) ((RhombusOrLoop) list.get(i)).getRefStart());
