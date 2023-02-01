@@ -1,3 +1,7 @@
+01.02.23
+überprüfen gleicher Elemente innerhalb eines Subprozesses
+
+
 ---05.12.22
 Input: Anzahl Loops & Anzahl Multiromben
 

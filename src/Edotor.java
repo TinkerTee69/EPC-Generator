@@ -30,7 +30,8 @@ public class Edotor {
             else if (list.get(i) instanceof Kante) {
                 id = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefStart());
                 endId = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefEnd());
-                System.out.println(id + " -> " + endId + "[ label = \"" + /*((Kante) list.get(i)).getKantenID() + */"\" ]");
+//                System.out.println(id + " -> " + endId + "[ label = \"" + /*((Kante) list.get(i)).getKantenID() + */"\" ]");
+                System.out.println(id + " -> " + endId + "[ label = \"" + i + "\" ]");
             }
             else {
                 id = ((RhombusOrLoop) list.get(i)).getId((Gate) ((RhombusOrLoop) list.get(i)).getRefStart());

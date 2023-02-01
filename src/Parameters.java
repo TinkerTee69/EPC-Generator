@@ -7,9 +7,9 @@ public class Parameters {
 
     public Parameters(boolean testModus) {
         if(testModus) {
-            setLoops(1);
-            setMaxElements(3);
-            setMinElements(1);
+            setLoops(4);
+            setMaxElements(4);
+            setMinElements(2);
             setRhomben(5);
         }
         else{
