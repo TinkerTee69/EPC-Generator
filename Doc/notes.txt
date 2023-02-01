@@ -1,6 +1,8 @@
 01.02.23
 überprüfen gleicher Elemente innerhalb eines Subprozesses
 
+-- Es müssen mindestens 2 Elemente zwischen den Gates liegen und max - min > 0
+
 
 ---05.12.22
 Input: Anzahl Loops & Anzahl Multiromben

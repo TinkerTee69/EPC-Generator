@@ -89,7 +89,7 @@ public class EPK {
 //                }
 
                 //Wenn es zu einer Endlosschleife kommt, breche nach 100 Änderungen ab
-                if(count>=1000)
+                if(count>=100)
                 {
                     Arrays.fill(changeFlag, false);
                     System.out.println("Count over");
@@ -247,6 +247,35 @@ public class EPK {
                     && ((ForwardKante) list.get(i)).getRefStart() instanceof Event
             ){
                 changeFlag = true;
+
+                //Ändern der Elemente nach dem (X)OR Gate
+                for(int j = 0; j < list.size(); j++){
+                    if(list.get(j) instanceof ForwardKante
+                        && ((ForwardKante) list.get(j)).getRefEnd().equals(((ForwardKante) list.get(i)).getRefStart())
+                        && ((ForwardKante) list.get(j)).getRefEnd() instanceof Function){
+                        //Wenn hinzugefügt werden kann, wird ein Event nach dem Gate eingefügt
+                        if(countElementsForwards(j,false) < params.getMaxElements()){
+                            Event evt = new Event();
+                            ForwardKante kante = new ForwardKante(evt,((ForwardKante) list.get(j)).getRefEnd());
+                            ((ForwardKante) list.get(j)).setRefEnd(evt);
+                            add2list(evt, kante, list);
+                        }
+                        //Wenn min == max Parameter
+                        else if(params.getMinElements().intValue() == params.getMaxElements().intValue()){
+                            System.out.println("Parameter Error");
+                        }
+                        //Wenn die Anzahl der Elemente nach dem Gate größer als der max Parameter sind, wird gelöscht
+                        else if(countElementsForwards(j,false) > params.getMinElements()){
+                            ((ForwardKante) list.get(j)).setRefEnd(((Kante)list.get(getNextKantenIndex(j))).getRefStart());
+                            list.remove(((ForwardKante) list.get(getNextKantenIndex(j))).getRefStart());
+                            list.remove(list.get(getNextKantenIndex(j)));
+                        }
+                        else {
+                            System.out.println("Unbekannter Fehler, keine Bedingung trifft zu");
+                        }
+                    }
+                }
+
                 //Wenn max Parameter noch nicht ausgeschöpft, wird eine Funktion hinter dem Event (& vor dem Gate) eingefügt
                 if(countElementsBackwards(i, false) < params.getMaxElements()) {
                     Function fct = new Function();
@@ -269,6 +298,7 @@ public class EPK {
                     list.remove(list.get(i));
                 }
             }
+
             i++;
             //Wenn eine Änderung vorgenommen wurde, wird i zurückgesetzt und solange überprüft,
             //bis keine Änderung mehr vorgenommen werden muss
@@ -528,6 +558,18 @@ public class EPK {
         return kantenIndex;
     }
 
+    // Gibt den Listen Index der vorherigen Kante
+    public int getNextKantenIndex(int kantenIndex){
+        for(int j = 0;j < list.size();j++) {
+            if (list.get(j) instanceof ForwardKante
+                    && ((ForwardKante) list.get(j)).getRefStart().equals(((ForwardKante) list.get(kantenIndex)).getRefEnd())) {
+                kantenIndex = j;
+                return kantenIndex;
+            }
+        }
+        return kantenIndex;
+    }
+
     private void getElementToDelete(int i) {
         for (Object k : list) {
             if (k instanceof ForwardKante
@@ -553,23 +595,29 @@ public class EPK {
         setList(list);
     }
 
+    //Zählen der Elemente ab der Kante list.get(kantenIndex)
+    //wenn kantenindex true ist, wird der kantenindex der letzten Kante in dem (Sub-)Prozess zurückgegeben
     public int countElementsForwards(int kantenIndex, boolean kantenIndexFlag){
         boolean stopFlag = false;
         int count = 0;
-        //Solange es sich nicht um ein Gate handelt oder das Startevent, zähle die Elemente zum "Start" hin (also von Endelement zu Start)
+        //Solange es sich nicht um ein Gate handelt oder das Endevent, zähle die Elemente bis zum nächsten Gate
         while(!stopFlag){
             if(((ForwardKante)list.get(kantenIndex)).getRefEnd() instanceof Gate
                     ||list.get(kantenIndex) instanceof backwardKante
-                    ||(list.get(kantenIndex) instanceof Event
-                    && ((Event)list.get(kantenIndex)).getId() == 2))
-            {
+                    ||(((ForwardKante) list.get(kantenIndex)).getRefEnd() instanceof Event
+                            && ((Event) ((ForwardKante) list.get(kantenIndex)).getRefEnd()).getId() == 2)) {
+
                 stopFlag = true;
                 if(kantenIndexFlag){
                     return kantenIndex;
                 }
+
+                if((((ForwardKante) list.get(kantenIndex)).getRefEnd() instanceof Event
+                        && ((Event) ((ForwardKante) list.get(kantenIndex)).getRefEnd()).getId() == 2)){
+                    return ++count;
+                }
             }
-            else
-            {
+            else{
                 for(int j = 0;j < list.size();j++){
                     if(list.get(j) instanceof ForwardKante
                             && ((ForwardKante) list.get(j)).getRefStart().equals(((ForwardKante) list.get(kantenIndex)).getRefEnd()) ){
@@ -580,6 +628,7 @@ public class EPK {
                     //Wenn kein Element mehr dahinter gefunden wird, beende die Suche
                     else if(j == list.size()){
                         stopFlag = true;
+                        break;
                     }
                 }
             }

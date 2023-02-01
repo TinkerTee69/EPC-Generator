@@ -6,7 +6,6 @@ public class Edotor {
 
     public Edotor(insertText epk) {
         //Konfiguration für Ausgabe mit Umlauten
-        //PrintWriter out = new PrintWriter(System.out, true);
         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
 
         //Start- und End ID der Elemente einer Kante
