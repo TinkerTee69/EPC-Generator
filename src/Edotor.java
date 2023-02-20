@@ -29,6 +29,7 @@ public class Edotor {
             else if (list.get(i) instanceof Kante) {
                 id = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefStart());
                 endId = ((Kante) list.get(i)).getId((EPK_Element) ((Kante) list.get(i)).getRefEnd());
+//                Für Debuggingzwecke kann die KantenID mit ausgegeben werden
 //                System.out.println(id + " -> " + endId + "[ label = \"" + /*((Kante) list.get(i)).getKantenID() + */"\" ]");
                 System.out.println(id + " -> " + endId + "[ label = \"" + i + "\" ]");
             }

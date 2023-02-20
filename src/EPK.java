@@ -16,7 +16,7 @@ public class EPK {
         int i_loop = amountLoops;
         int kantenIndex;
 
-        //Erzeugung zweier Startelemente
+        //Erzeugung zweier Startelemente: Start- und Endereignis
         Event evt = new Event("Start Event");
         Event evt2 = new Event("Prozess beendet");
 
@@ -74,25 +74,18 @@ public class EPK {
             while(changeFlag[0] || changeFlag[1] || changeFlag[2]
                     || changeFlag[3] || changeFlag[4]) {
                 changeFlag[0] = checkElementsBeforeStartgate();
-                changeFlag[1] = checkElementsBeforeEndgate();
+                changeFlag[1] = checkElementsBeforeEndGate();
                 changeFlag[2] = checkXOOR();
                 changeFlag[3] = checkBeforeAndAfterGate();
                 changeFlag[4] = checkAND();
-//                changeFlag[5] = checkMinMax();
+                changeFlag[5] = checkMinMax();
 
                 count++;
-//                if(count%26==0)
-//                {
-//                    EPK epk = new EPK(params);
-//                    list.clear();
-//                    list = epk.getList();
-//                }
 
                 //Wenn es zu einer Endlosschleife kommt, breche nach 100 Änderungen ab
                 if(count>=100)
                 {
                     Arrays.fill(changeFlag, false);
-                    System.out.println("Count over");
                     break;
                 }
             }
@@ -101,7 +94,6 @@ public class EPK {
 
     //Elemente vor dem Startgate eines Rhombuses/Loops überprüfen und ggf. einfügen
     public boolean checkElementsBeforeStartgate(){
-        System.out.println("CheckBefore Startgate");
         boolean changeFlag = false;
         int i = 0;
         while(list.size() > i){
@@ -174,8 +166,7 @@ public class EPK {
     }
 
     //Überprüfung und ggf Einfügen von Elementen nach dem Startgate eines Rhombuses / Loops
-    public boolean checkElementsBeforeEndgate(){
-        System.out.println("checkBefore Endgate");
+    public boolean checkElementsBeforeEndGate(){
         boolean changeFlag = false;
         int i = 0;
         Parameters parameters = getParams();
@@ -203,6 +194,11 @@ public class EPK {
                                 boolean firstAdd = true;
                                 Object oldObject = null;
                                 int rndStartElement = rnd.nextInt(2);
+                                //Wenn es sich um (X)OR Elemente handelt, beginne mit einer Funktion
+                                if((list.get(i)) instanceof XOORhombus || (list.get(i)) instanceof Loop)
+                                {
+                                    rndStartElement = 2;
+                                }
                                 for(int l = 0; rndAmountElements > l; l++){
                                     if((l+rndStartElement)%2==0){
                                         Function fct = new Function();
@@ -235,7 +231,6 @@ public class EPK {
 
     //Überprüfung ob Events vor (X)OR Gates stehen, wenn ja Funktion dazwischen einfügen
     public boolean checkXOOR(){
-        System.out.println("checkXOOR");
         boolean changeFlag = false;
         int i = 0;
         while(list.size() > i) {
@@ -319,7 +314,6 @@ public class EPK {
         int listSize=list.size();
         Object obj = new Object();
 
-        System.out.println("checkAnd");
         while(list.size() > i) {
             boolean withoutChange = true;
             //Wenn die aktuelle ein AND Gate als Ende referenziert wird, wird das Startelement angeschaut und mit dem
@@ -375,7 +369,6 @@ public class EPK {
 
     //Überprüfung, ob vor und nach einem Gate das gleiche Element ist, wenn ja, dann wird das nachfolgende geändert
     public boolean checkBeforeAndAfterGate(){
-        System.out.println("check before and after gate");
         boolean changeFlag = false;
         boolean breakFlag = false;
         //Flag zur Identifizierung, ob hinter dem Start oder EndGate das Element verändert werden muss
@@ -408,7 +401,7 @@ public class EPK {
                                 if (list.get(k) instanceof ForwardKante
                                         && ((ForwardKante) list.get(k)).getRefEnd().equals(((ForwardKante) list.get(i)).getRefStart())) {
                                     ((ForwardKante) list.get(k)).setRefEnd(((ForwardKante) list.get(i)).getRefEnd());
-//                                zu löschendes Element finden
+                                    //zu löschendes Element finden
                                     deleteElement(i);
                                     breakFlag = true;
                                     listSize = list.size();
@@ -464,9 +457,6 @@ public class EPK {
 
     //Überprüfung auf Einhaltung der min/max Parameter
     public boolean checkMinMax() {
-        System.out.println("check min max");
-        insertText insertText = new insertText(this);
-        Edotor edotor = new Edotor(insertText);
         boolean changeFlag = false;
         //Flag zur Identifizierung, ob hinter dem Start oder EndGate das Element verändert werden muss
         //int startFlag = 0;
@@ -570,12 +560,14 @@ public class EPK {
         return kantenIndex;
     }
 
+    //Sucht das zu löschende Element und verbindet das vorherige Element mit dem Element nach dem zu Löschenden
     private void getElementToDelete(int i) {
         for (Object k : list) {
+            //zu löschendes Element finden
             if (k instanceof ForwardKante
                     && ((ForwardKante) k).getRefEnd().equals(((ForwardKante) list.get(i)).getRefStart())) {
                 ((ForwardKante) k).setRefEnd(((ForwardKante) list.get(i)).getRefEnd());
-//                                zu löschendes Element finden
+                //löschen des Elements
                 deleteElement(i);
                 break;
             }
@@ -583,6 +575,8 @@ public class EPK {
     }
 
 
+    //Löscht das Element.
+    //Vorher sollten die Referenzen angepasst werden, um nicht auf ein nicht existierendes Element zu zeigen
     public void deleteElement(int i){
         for (int l = 0; l < list.size(); l++) {
             if (list.get(l) instanceof EPK_Element
