@@ -49,7 +49,7 @@ public class Parameters {
         do{
             System.out.println("Choose maximum of Elements between gates: ");
             this.maxElements = Integer.parseInt(sc.nextLine());
-        }while(maxElements < getMinElements());
+        }while(maxElements <= getMinElements());
     }
 
     public Integer getLoops() {
