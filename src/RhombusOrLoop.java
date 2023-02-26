@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class RhombusOrLoop {
+    private Object refStart;
+    private Object refEnd;
 
     public RhombusOrLoop(Integer kantenIndex, List<Object> list, List<Kante> kantenList, Object refStart, Object refEnd) {
 
@@ -33,9 +35,6 @@ public class RhombusOrLoop {
             }
         }
     }
-
-    private Object refStart;
-    private Object refEnd;
 
     public Object getRefStart() {
         return refStart;

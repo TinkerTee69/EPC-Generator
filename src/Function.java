@@ -4,11 +4,6 @@ public class Function extends EPK_Element{
     private String Text;
     private Integer position;
 
-    public Function(String Text){
-        super();
-        this.Text = Text;
-    }
-
     public Function()
     {
         super();

@@ -2,9 +2,9 @@ import java.util.*;
 
 public class EPK {
 
-    List<Kante> kantenList = new ArrayList<>();
-    List<Object> list = new ArrayList<>();
-    Parameters params;
+    private List<Kante> kantenList = new ArrayList<>();
+    private List<Object> list = new ArrayList<>();
+    private Parameters params;
 
     public EPK(Parameters parameters) {
         setParams(parameters);
